@@ -1,1 +1,61 @@
 @import 'tailwindcss';
+
+@theme {
+  /* Indigo */
+  --color-my-brand-50: #eef2ff;
+  --color-my-brand-100: #e0e7ff;
+  --color-my-brand-200: #c7d2fe;
+  --color-my-brand-500: #6366f1;
+  --color-my-brand-600: #4f46e5;
+  --color-my-brand-700: #4338ca;
+  --color-my-brand-800: #3730a3;
+  --color-my-brand-900: #312e81;
+
+  /* Grey */
+  --color-my-grey-0: #fff;
+  --color-my-grey-50: #f9fafb;
+  --color-my-grey-100: #f3f4f6;
+  --color-my-grey-200: #e5e7eb;
+  --color-my-grey-300: #d1d5db;
+  --color-my-grey-400: #9ca3af;
+  --color-my-grey-500: #6b7280;
+  --color-my-grey-600: #4b5563;
+  --color-my-grey-700: #374151;
+  --color-my-grey-800: #1f2937;
+  --color-my-grey-900: #111827;
+
+  --color-my-blue-100: #e0f2fe;
+  --color-my-blue-700: #0369a1;
+  --color-my-green-100: #dcfce7;
+  --color-my-green-700: #15803d;
+  --color-my-yellow-100: #fef9c3;
+  --color-my-yellow-700: #a16207;
+  --color-my-silver-100: #e5e7eb;
+  --color-my-silver-700: #374151;
+  --color-my-indigo-100: #e0e7ff;
+  --color-my-indigo-700: #4338ca;
+
+  --color-my-red-100: #fee2e2;
+  --color-my-red-700: #b91c1c;
+  --color-my-red-800: #991b1b;
+
+  /* 
+  --backdrop-color: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12); */
+
+  /*   --border-radius-tiny: 3px;
+  --border-radius-sm: 5px;
+  --border-radius-md: 7px;
+  --border-radius-lg: 9px; */
+
+  /* For dark mode */
+  /*  --image-grayscale: 0;
+  --image-opacity: 100%; */
+}
+
+/* .dark {
+  --color-my-red-100: #4338ca;
+}
+ */
