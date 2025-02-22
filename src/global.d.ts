@@ -1,10 +1,11 @@
-import { Database } from './lib/database.types';
+import { Database as DB } from './lib/database.types';
 
 declare global {
-  type TBookings = Database['public']['Tables']['bookings']['Row'];
-  type TCabins = Database['public']['Tables']['cabins']['Row'];
-  type TGuests = Database['public']['Tables']['guests']['Row'];
-  type TSettings = Database['public']['Tables']['settings']['Row'];
+  type Database = DB;
+  type TBookings = DB['public']['Tables']['bookings']['Row'];
+  type TCabins = DB['public']['Tables']['cabins']['Row'];
+  type TGuests = DB['public']['Tables']['guests']['Row'];
+  type TSettings = DB['public']['Tables']['settings']['Row'];
 }
 
 export {};
