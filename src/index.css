@@ -59,3 +59,7 @@
   --color-my-red-100: #4338ca;
 }
  */
+
+.active {
+  @apply bg-my-grey-50 text-my-grey-800;
+}
