@@ -12,6 +12,8 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.0.6",
+    "@tanstack/react-query": "^5.66.9",
+    "@tanstack/react-query-devtools": "^5.66.9",
     "eslint-plugin-react": "^7.37.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

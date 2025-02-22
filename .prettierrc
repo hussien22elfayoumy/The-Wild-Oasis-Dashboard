@@ -7,6 +7,5 @@
   "printWidth": 80,
   "jsxSingleQuote": false,
   "bracketSpacing": true,
-  "arrowParens": "always",
-  "singleAttributePerLine": true
+  "arrowParens": "always"
 }
