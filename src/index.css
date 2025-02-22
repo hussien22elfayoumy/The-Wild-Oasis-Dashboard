@@ -60,6 +60,22 @@
 }
  */
 
-.active {
-  @apply bg-my-grey-50 text-my-grey-800;
+@layer base {
+  body {
+    font-family: 'Poppins', sans-serif;
+
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+    min-height: 100vh;
+
+    @apply text-my-grey-700;
+  }
+
+  .active {
+    @apply bg-my-grey-50 text-my-grey-800;
+  }
+  .active svg {
+    @apply !text-my-brand-600;
+  }
 }
