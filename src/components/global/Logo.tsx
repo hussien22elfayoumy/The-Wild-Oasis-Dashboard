@@ -1,6 +1,6 @@
 function Logo() {
   return (
-    <div className="text-center">
+    <div className="self-center">
       <img
         src="/logo-light.png"
         alt="Logo"
