@@ -10,6 +10,7 @@ import PageNotFound from './pages/PageNotFound';
 import Users from './pages/Users';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -31,6 +32,23 @@ export default function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{
+          margin: '8px',
+        }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          className:
+            '!bg-my-grey-0 !text-my-grey-700 !py-3 !px-6 !max-w-[500px]',
+        }}
+      />
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
