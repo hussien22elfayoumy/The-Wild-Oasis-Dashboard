@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getCabins } from '../../utils/cabins-api';
+import { formatCurrency } from '../../utils/helpers';
 
 export default function CabinTable() {
   const { data: cabinData } = useQuery({
@@ -45,11 +46,11 @@ export default function CabinTable() {
               </td>
 
               <td className="font-[Sono] font-semibold">
-                {cabin.regularPrice}
+                {formatCurrency(cabin.regularPrice!)}
               </td>
 
               <td className="text-my-green-700 font-[Sono] font-medium">
-                {cabin.discount}
+                {formatCurrency(cabin.discount!)}
               </td>
               <td className="font-medium">
                 <button>Delete</button>
