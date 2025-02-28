@@ -1,21 +1,26 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import Button from '../../components/global/Button';
 import FormRow from '../../components/global/FormRow';
 import {
   createCabinSchema,
   TCreateCabin,
 } from '../../types/schema/create-cabin-schema';
-import { createEditCabin } from '../../utils/cabins-api';
+import { useCreateCabin } from './useCreateCabin';
+import { useUpdateCabin } from './useUpdateCabin';
+import { useState } from 'react';
 
 function CreateCabinForm({
   cabinDefaultValues,
 }: {
   cabinDefaultValues?: TCabins;
 }) {
+  const { isCreatingCabin, createCabinMutation } = useCreateCabin();
+  const { isUpdatingCabin, updateCabinMutation } = useUpdateCabin();
+  const [imageError, setImageError] = useState('');
+
   const isEditMode = Boolean(cabinDefaultValues);
+
   const defaultValues = cabinDefaultValues
     ? {
         name: cabinDefaultValues.name!,
@@ -30,57 +35,36 @@ function CreateCabinForm({
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm<TCreateCabin>({
     resolver: zodResolver(createCabinSchema),
     defaultValues,
   });
 
-  const queryClient = useQueryClient();
-  const { mutate: mutateCreateCabin, isPending: isCreatingCabin } = useMutation(
-    {
-      mutationFn: createEditCabin,
-      onSuccess: () => {
-        toast.success('Cabin created successfully');
-        queryClient.invalidateQueries({ queryKey: ['cabins'] });
-        // reset();
-      },
-      onError: (err) => {
-        toast.error(err.message);
-      },
-    }
-  );
-
-  const { mutate: mutateEditCabin, isPending: isUpdatingCabin } = useMutation({
-    mutationFn: ({
-      newCabinData,
-      id,
-    }: {
-      newCabinData: TCreateCabin;
-      id: number;
-    }) => createEditCabin(newCabinData, id),
-
-    onSuccess: () => {
-      toast.success('Cabin updated successfully');
-      queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      // reset();
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
-
   function onSubmit(values: TCreateCabin) {
+    console.log(values);
+    setImageError('');
+    if (!values.image.length || !values.image) {
+      setImageError('Cabin Image is Require');
+      return;
+    }
+
     const image =
       typeof values.image === 'string' ? values.image : values.image[0];
 
     if (isEditMode)
-      mutateEditCabin({
+      updateCabinMutation({
         newCabinData: { ...values, image },
         id: cabinDefaultValues?.id!,
       });
-    else mutateCreateCabin({ ...values, image });
+    else
+      createCabinMutation(
+        { ...values, image },
+        {
+          onSuccess: () => reset(),
+        }
+      );
   }
 
   return (
@@ -152,11 +136,7 @@ function CreateCabinForm({
         />
       </FormRow>
 
-      <FormRow
-        labelName="Cabin photo"
-        labelFor="image"
-        error={errors?.image?.message as string}
-      >
+      <FormRow labelName="Cabin photo" labelFor="image" error={imageError}>
         <input
           type="file"
           id="image"

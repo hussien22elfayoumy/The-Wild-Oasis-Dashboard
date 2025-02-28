@@ -1,24 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { formatCurrency } from '../../utils/helpers';
-import { deleteCabine } from '../../utils/cabins-api';
-import toast from 'react-hot-toast';
 import { useState } from 'react';
+import { formatCurrency } from '../../utils/helpers';
 import CreateCabinForm from './CreateCabinForm';
+import { useDeleteCabin } from './useDeleteCabin';
 
 export default function CabinRow({ cabin }: { cabin: TCabins }) {
-  const queryClient = useQueryClient();
-  const { isPending: isDeletingCabin, mutate } = useMutation({
-    mutationFn: deleteCabine,
-    onSuccess: () => {
-      toast.success('Cabin Deleted Successfully');
-      queryClient.invalidateQueries({
-        queryKey: ['cabins'],
-      });
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
+  const { isDeletingCabin, deleteCabinMutation } = useDeleteCabin();
 
   const [showForm, setShowForm] = useState(false);
 
@@ -58,7 +44,7 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
         <td className="font-medium">
           <button
             className="cursor-pointer disabled:text-red-500"
-            onClick={() => mutate(cabin.id)}
+            onClick={() => deleteCabinMutation(cabin.id)}
             disabled={isDeletingCabin}
           >
             Delete
