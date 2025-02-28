@@ -1,5 +1,6 @@
 import { FieldValues } from 'react-hook-form';
 import { supabase } from '../db/supabase';
+import { TCreateCabin } from '../types/schema/create-cabin-schema';
 
 export async function getCabins() {
   const { data, error } = await supabase.from('cabins').select('*');
@@ -66,7 +67,7 @@ export async function getCabins() {
   return data;
 } */
 
-export async function createCabin(newCabin: FieldValues) {
+export async function createCabin(newCabin: TCreateCabin) {
   const { data, error } = await supabase.from('cabins').insert([newCabin]);
 
   if (error) {
