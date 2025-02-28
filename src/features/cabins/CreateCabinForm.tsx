@@ -1,8 +1,25 @@
 import Button from '../../components/global/Button';
+import { FieldValues, useForm } from 'react-hook-form';
 
 function CreateCabinForm() {
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      name: '',
+      maxCapacity: '',
+      regularPrice: '',
+      discount: 0,
+      description: '',
+    },
+  });
+
+  function onSubmit(values: FieldValues) {
+    console.log(values);
+  }
   return (
-    <form className="space-y-3">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-my-grey-0 space-y-3 px-6 py-8"
+    >
       <div className="flex flex-col gap-1">
         <label htmlFor="name" className="font-medium">
           Cabin name
@@ -11,6 +28,7 @@ function CreateCabinForm() {
           type="text"
           id="name"
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
+          {...register('name')}
         />
       </div>
 
@@ -22,6 +40,7 @@ function CreateCabinForm() {
           type="number"
           id="maxCapacity"
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
+          {...register('maxCapacity')}
         />
       </div>
 
@@ -33,6 +52,7 @@ function CreateCabinForm() {
           type="number"
           id="regularPrice"
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
+          {...register('regularPrice')}
         />
       </div>
 
@@ -43,8 +63,8 @@ function CreateCabinForm() {
         <input
           type="number"
           id="discount"
-          defaultValue={0}
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
+          {...register('discount')}
         />
       </div>
 
@@ -54,8 +74,8 @@ function CreateCabinForm() {
         </label>
         <textarea
           id="description"
-          defaultValue=""
           className="border-my-grey-200 bg-my-grey-0 min-h-20 rounded-md border p-2 shadow"
+          {...register('description')}
         />
       </div>
 
@@ -72,8 +92,14 @@ function CreateCabinForm() {
       </div>
 
       <div className="flex justify-end gap-3 pt-3">
-        <Button variation="secondary">Cancel</Button>
-        <Button variation="primary">Edit cabin</Button>
+        <Button
+          type="reset"
+          onClick={() => console.log('hello')}
+          variation="secondary"
+        >
+          Cancel
+        </Button>
+        <Button variation="primary">Create cabin</Button>
       </div>
     </form>
   );

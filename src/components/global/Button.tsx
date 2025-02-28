@@ -2,6 +2,8 @@ interface ButtonProps {
   children: React.ReactNode;
   variation?: 'primary' | 'secondary' | 'danger';
   size?: 'small' | 'medium' | 'large';
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: 'submit' | 'reset' | 'button' | undefined;
 }
 
 const Button = ({
