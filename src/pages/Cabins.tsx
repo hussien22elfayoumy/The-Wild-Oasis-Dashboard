@@ -1,4 +1,5 @@
 import CabinTable from '../features/cabins/CabinTable';
+import CreateCabinForm from '../features/cabins/CreateCabinForm';
 
 function Cabins() {
   return (
@@ -10,6 +11,8 @@ function Cabins() {
 
       <div className="flex flex-col gap-1.5">
         <CabinTable />
+
+        <CreateCabinForm />
       </div>
     </>
   );
