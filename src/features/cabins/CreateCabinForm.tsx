@@ -1,30 +1,68 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Button from '../../components/global/Button';
-import { useForm } from 'react-hook-form';
-import { createCabin } from '../../utils/cabins-api';
-import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import Button from '../../components/global/Button';
+import FormRow from '../../components/global/FormRow';
 import {
   createCabinSchema,
   TCreateCabin,
 } from '../../types/schema/create-cabin-schema';
-import FormRow from '../../components/global/FormRow';
+import { createEditCabin } from '../../utils/cabins-api';
 
-function CreateCabinForm() {
+function CreateCabinForm({
+  cabinDefaultValues,
+}: {
+  cabinDefaultValues?: TCabins;
+}) {
+  const isEditMode = Boolean(cabinDefaultValues);
+  const defaultValues = cabinDefaultValues
+    ? {
+        name: cabinDefaultValues.name!,
+        maxCapacity: cabinDefaultValues.maxCapacity!,
+        regularPrice: cabinDefaultValues.regularPrice!,
+        discount: cabinDefaultValues.discount!,
+        description: cabinDefaultValues.description!,
+        image: cabinDefaultValues.image!,
+      }
+    : undefined;
+
   const {
     register,
     handleSubmit,
-    reset,
+    // reset,
     formState: { errors },
   } = useForm<TCreateCabin>({
     resolver: zodResolver(createCabinSchema),
+    defaultValues,
   });
 
   const queryClient = useQueryClient();
-  const { mutate, isPending: isCreatingCabin } = useMutation({
-    mutationFn: createCabin,
+  const { mutate: mutateCreateCabin, isPending: isCreatingCabin } = useMutation(
+    {
+      mutationFn: createEditCabin,
+      onSuccess: () => {
+        toast.success('Cabin created successfully');
+        queryClient.invalidateQueries({ queryKey: ['cabins'] });
+        // reset();
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    }
+  );
+
+  const { mutate: mutateEditCabin, isPending: isUpdatingCabin } = useMutation({
+    mutationFn: ({
+      newCabinData,
+      id,
+    }: {
+      newCabinData: TCreateCabin;
+      id: number;
+    }) => createEditCabin(newCabinData, id),
+
     onSuccess: () => {
-      toast.success('Cabin created successfully');
+      toast.success('Cabin updated successfully');
       queryClient.invalidateQueries({ queryKey: ['cabins'] });
       // reset();
     },
@@ -34,7 +72,15 @@ function CreateCabinForm() {
   });
 
   function onSubmit(values: TCreateCabin) {
-    mutate({ ...values, image: values.image[0] });
+    const image =
+      typeof values.image === 'string' ? values.image : values.image[0];
+
+    if (isEditMode)
+      mutateEditCabin({
+        newCabinData: { ...values, image },
+        id: cabinDefaultValues?.id!,
+      });
+    else mutateCreateCabin({ ...values, image });
   }
 
   return (
@@ -124,8 +170,11 @@ function CreateCabinForm() {
         <Button type="reset" variation="secondary">
           Cancel
         </Button>
-        <Button disabled={isCreatingCabin} variation="primary">
-          Create cabin
+        <Button
+          disabled={isCreatingCabin || isUpdatingCabin}
+          variation="primary"
+        >
+          {isEditMode ? 'Edit Cabin' : 'Create Cabin'}
         </Button>
       </div>
     </form>

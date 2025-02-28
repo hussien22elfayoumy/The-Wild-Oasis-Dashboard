@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import CabinTable from '../features/cabins/CabinTable';
 import CreateCabinForm from '../features/cabins/CreateCabinForm';
 
 function Cabins() {
+  const [showForm, setShowForm] = useState(false);
   return (
     <>
       <div className="flex items-center justify-between">
@@ -12,7 +14,11 @@ function Cabins() {
       <div className="flex flex-col gap-1.5">
         <CabinTable />
 
-        <CreateCabinForm />
+        <button onClick={() => setShowForm((show) => !show)}>
+          create cabin
+        </button>
+
+        {showForm && <CreateCabinForm />}
       </div>
     </>
   );
