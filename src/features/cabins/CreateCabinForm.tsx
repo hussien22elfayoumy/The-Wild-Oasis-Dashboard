@@ -3,16 +3,19 @@ import Button from '../../components/global/Button';
 import { FieldValues, useForm } from 'react-hook-form';
 import { createCabin } from '../../utils/cabins-api';
 import toast from 'react-hot-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  createCabinSchema,
+  TCreateCabin,
+} from '../../types/schema/create-cabin-schema';
 
 function CreateCabinForm() {
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      name: '',
-      maxCapacity: '',
-      regularPrice: '',
-      discount: 0,
-      description: '',
-    },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TCreateCabin>({
+    resolver: zodResolver(createCabinSchema),
   });
   const queryClient = useQueryClient();
   const { mutate, isPending: isCreatingCabin } = useMutation({
@@ -47,6 +50,9 @@ function CreateCabinForm() {
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
           {...register('name')}
         />
+        {errors.name && (
+          <p className="text-my-red-700">{errors.name.message}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -59,6 +65,9 @@ function CreateCabinForm() {
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
           {...register('maxCapacity')}
         />
+        {errors.maxCapacity && (
+          <p className="text-my-red-700">{errors.maxCapacity.message}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -71,6 +80,9 @@ function CreateCabinForm() {
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
           {...register('regularPrice')}
         />
+        {errors.regularPrice && (
+          <p className="text-my-red-700">{errors.regularPrice.message}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -83,6 +95,9 @@ function CreateCabinForm() {
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
           {...register('discount')}
         />
+        {errors.discount && (
+          <p className="text-my-red-700">{errors.discount.message}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -94,6 +109,9 @@ function CreateCabinForm() {
           className="border-my-grey-200 bg-my-grey-0 min-h-20 rounded-md border p-2 shadow"
           {...register('description')}
         />
+        {errors.description && (
+          <p className="text-my-red-700">{errors.description.message}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
