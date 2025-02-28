@@ -6,7 +6,10 @@ export const createCabinSchema = z
       .number()
       .positive('Max Capacity must be greater than 0'),
     regularPrice: z.coerce.number().positive('Price must be greater than 0'),
-    discount: z.coerce.number().positive('Discount must be greater than 0'),
+    discount: z.coerce
+      .number()
+      .refine((val) => val >= 0, 'discount must be greater or equal than 0')
+      .optional(),
     description: z.string().min(1, 'Description is Required'),
     image: z.any(),
     // .refine((file) => !file, 'Cabin Image is required')
@@ -26,7 +29,7 @@ export const createCabinSchema = z
     // // )
     // .optional(),
   })
-  .refine((values) => values.discount < values.regularPrice, {
+  .refine((values) => values.discount! < values.regularPrice, {
     message: 'Discount must be less than price',
     path: ['discount'],
   });

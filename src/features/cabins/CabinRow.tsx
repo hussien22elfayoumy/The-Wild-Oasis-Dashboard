@@ -48,9 +48,13 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
           {formatCurrency(cabin.regularPrice!)}
         </td>
 
-        <td className="text-my-green-700 font-[Sono] font-medium">
-          {formatCurrency(cabin.discount!)}
-        </td>
+        {cabin.discount ? (
+          <td className="text-my-green-700 font-[Sono] font-medium">
+            {formatCurrency(cabin.discount!)}
+          </td>
+        ) : (
+          <td>&mdash;</td>
+        )}
         <td className="font-medium">
           <button
             className="cursor-pointer disabled:text-red-500"

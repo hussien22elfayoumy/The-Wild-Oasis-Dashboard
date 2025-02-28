@@ -25,7 +25,7 @@ function CreateCabinForm({
         description: cabinDefaultValues.description!,
         image: cabinDefaultValues.image!,
       }
-    : undefined;
+    : { discount: 0 };
 
   const {
     register,
