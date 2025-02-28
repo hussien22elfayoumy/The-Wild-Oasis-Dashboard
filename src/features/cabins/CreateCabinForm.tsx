@@ -26,7 +26,7 @@ function CreateCabinForm() {
     onSuccess: () => {
       toast.success('Cabin created successfully');
       queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      reset();
+      // reset();
     },
     onError: (err) => {
       toast.error(err.message);
@@ -34,7 +34,7 @@ function CreateCabinForm() {
   });
 
   function onSubmit(values: TCreateCabin) {
-    mutate(values);
+    mutate({ ...values, image: values.image[0] });
   }
 
   return (
@@ -106,12 +106,17 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow labelName="Cabin photo" labelFor="image" error={undefined}>
+      <FormRow
+        labelName="Cabin photo"
+        labelFor="image"
+        error={errors?.image?.message as string}
+      >
         <input
           type="file"
           id="image"
           accept="image/*"
-          className="border-my-grey-200 bg-my-grey-0 file:text-brand-50 file:bg-brand-600 hover:file:bg-brand-700 rounded-md border shadow file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:px-4 file:py-2 file:font-medium"
+          className="border-my-grey-200 bg-my-grey-0 file:text-my-brand-50 file:bg-my-brand-600 hover:file:bg-my-brand-700 rounded-md border shadow file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:px-4 file:py-2 file:font-medium"
+          {...register('image')}
         />
       </FormRow>
 
