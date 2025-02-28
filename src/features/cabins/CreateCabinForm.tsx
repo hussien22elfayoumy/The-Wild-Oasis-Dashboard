@@ -1,5 +1,8 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../components/global/Button';
 import { FieldValues, useForm } from 'react-hook-form';
+import { createCabin } from '../../utils/cabins-api';
+import toast from 'react-hot-toast';
 
 function CreateCabinForm() {
   const { register, handleSubmit } = useForm({
@@ -11,9 +14,23 @@ function CreateCabinForm() {
       description: '',
     },
   });
+  const queryClient = useQueryClient();
+  const { mutate, isPending: isCreatingCabin } = useMutation({
+    mutationFn: createCabin,
+    onSuccess: () => {
+      toast.success('Cabin created successfully');
+      queryClient.invalidateQueries({
+        queryKey: ['cabins'],
+      });
+    },
+
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
 
   function onSubmit(values: FieldValues) {
-    console.log(values);
+    mutate(values);
   }
   return (
     <form
@@ -99,7 +116,9 @@ function CreateCabinForm() {
         >
           Cancel
         </Button>
-        <Button variation="primary">Create cabin</Button>
+        <Button disabled={isCreatingCabin} variation="primary">
+          Create cabin
+        </Button>
       </div>
     </form>
   );

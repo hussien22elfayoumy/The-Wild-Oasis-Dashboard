@@ -1,3 +1,4 @@
+import { FieldValues } from 'react-hook-form';
 import { supabase } from '../db/supabase';
 
 export async function getCabins() {
@@ -64,6 +65,17 @@ export async function getCabins() {
 
   return data;
 } */
+
+export async function createCabin(newCabin: FieldValues) {
+  const { data, error } = await supabase.from('cabins').insert([newCabin]);
+
+  if (error) {
+    // console.error(error);
+    throw new Error("Cabin couldn't be created");
+  }
+
+  return data;
+}
 
 export async function deleteCabine(id: number) {
   const { data, error } = await supabase.from('cabins').delete().eq('id', id);

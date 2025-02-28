@@ -3,7 +3,7 @@ import Sidebar from '../components/global/SideBar';
 
 export default function AppLayout() {
   return (
-    <div className="grid min-h-screen grid-cols-[18rem_1fr] grid-rows-[auto_1fr]">
+    <div className="grid h-screen grid-cols-[18rem_1fr] grid-rows-[auto_1fr]">
       <header className="bg-my-grey-0 border-my-grey-200 border-b px-12 py-5">
         Header
       </header>

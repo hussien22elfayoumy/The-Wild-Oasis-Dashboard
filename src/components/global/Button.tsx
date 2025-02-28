@@ -4,6 +4,7 @@ interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'submit' | 'reset' | 'button' | undefined;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -27,7 +28,7 @@ const Button = ({
 
   return (
     <button
-      className={`${baseStyles} ${sizeStyles[size]} ${variationStyles[variation]}`}
+      className={`${baseStyles} ${sizeStyles[size]} ${variationStyles[variation]} disabled:cursor-not-allowed disabled:opacity-20`}
       {...props}
     >
       {children}
