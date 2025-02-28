@@ -1,13 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { getCabins } from '../../utils/cabins-api';
-import CabinRow from './CabinRow';
 import Spinner from '../../components/global/Spinner';
+import CabinRow from './CabinRow';
+import { useCabins } from './useCabins';
 
 export default function CabinTable() {
-  const { data: cabinData, isLoading } = useQuery({
-    queryKey: ['cabins'],
-    queryFn: getCabins,
-  });
+  const { isLoading, cabinsData } = useCabins();
 
   if (isLoading) {
     return (
@@ -31,7 +27,9 @@ export default function CabinTable() {
       </thead>
       <tbody className="w-full">
         <>
-          {cabinData?.map((cabin) => <CabinRow key={cabin.id} cabin={cabin} />)}
+          {cabinsData?.map((cabin) => (
+            <CabinRow key={cabin.id} cabin={cabin} />
+          ))}
         </>
       </tbody>
     </table>

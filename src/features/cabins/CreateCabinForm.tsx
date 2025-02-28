@@ -154,7 +154,7 @@ function CreateCabinForm({
           disabled={isCreatingCabin || isUpdatingCabin}
           variation="primary"
         >
-          {isEditMode ? 'Edit Cabin' : 'Create Cabin'}
+          {isEditMode ? 'Update Cabin' : 'Create new Cabin'}
         </Button>
       </div>
     </form>

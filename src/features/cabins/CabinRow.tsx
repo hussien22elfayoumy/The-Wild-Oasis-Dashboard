@@ -2,12 +2,26 @@ import { useState } from 'react';
 import { formatCurrency } from '../../utils/helpers';
 import CreateCabinForm from './CreateCabinForm';
 import { useDeleteCabin } from './useDeleteCabin';
+import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
+import { useCreateCabin } from './useCreateCabin';
 
 export default function CabinRow({ cabin }: { cabin: TCabins }) {
   const { isDeletingCabin, deleteCabinMutation } = useDeleteCabin();
+  const { createCabinMutation, isCreatingCabin } = useCreateCabin();
+  const isWorking = isCreatingCabin || isDeletingCabin;
 
   const [showForm, setShowForm] = useState(false);
 
+  function handleDuplicateCabin() {
+    createCabinMutation({
+      name: `Copy of ${cabin.name!}`,
+      maxCapacity: cabin.maxCapacity!,
+      regularPrice: cabin.regularPrice!,
+      discount: cabin.discount!,
+      description: cabin.description!,
+      image: cabin.image!,
+    });
+  }
   return (
     <>
       <tr
@@ -45,15 +59,23 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
           <button
             className="cursor-pointer disabled:text-red-500"
             onClick={() => deleteCabinMutation(cabin.id)}
-            disabled={isDeletingCabin}
+            disabled={isWorking}
           >
-            Delete
+            <HiTrash />
           </button>
           <button
             onClick={() => setShowForm((show) => !show)}
             className="cursor-pointer disabled:text-red-500"
+            disabled={isWorking}
           >
-            Edit
+            <HiPencil />
+          </button>
+          <button
+            disabled={isWorking}
+            className="cursor-pointer disabled:text-red-500"
+            onClick={handleDuplicateCabin}
+          >
+            <HiSquare2Stack />
           </button>
         </td>
       </tr>
