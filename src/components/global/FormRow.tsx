@@ -1,6 +1,6 @@
 interface IFormRowProps {
   children: React.ReactNode;
-  error: string | undefined;
+  error?: string | undefined;
   labelFor: string;
   labelName: string;
 }
