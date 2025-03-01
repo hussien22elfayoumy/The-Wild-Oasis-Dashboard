@@ -1,9 +1,27 @@
+import { useSearchParams } from 'react-router-dom';
 import Spinner from '../../components/global/Spinner';
 import CabinRow from './CabinRow';
 import { useCabins } from './useCabins';
 
 export default function CabinTable() {
+  const [searchParmas] = useSearchParams();
   const { isLoading, cabinsData } = useCabins();
+
+  const filter = searchParmas.get('discount') || 'all';
+
+  let filterdCabins;
+
+  if (filter === 'all') {
+    filterdCabins = cabinsData;
+  }
+
+  if (filter === 'with-discount') {
+    filterdCabins = cabinsData?.filter((cabin) => cabin.discount! > 0);
+  }
+
+  if (filter === 'no-discount') {
+    filterdCabins = cabinsData?.filter((cabin) => cabin.discount === 0);
+  }
 
   if (isLoading) {
     return (
@@ -27,7 +45,7 @@ export default function CabinTable() {
       </thead>
       <tbody className="w-full">
         <>
-          {cabinsData?.map((cabin) => (
+          {filterdCabins?.map((cabin) => (
             <CabinRow key={cabin.id} cabin={cabin} />
           ))}
         </>

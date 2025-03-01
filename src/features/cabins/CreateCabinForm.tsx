@@ -45,7 +45,6 @@ function CreateCabinForm({
   });
 
   function onSubmit(values: TCreateCabin) {
-    console.log(values);
     setImageError('');
     if (!values.image.length || !values.image) {
       setImageError('Cabin Image is Require');
