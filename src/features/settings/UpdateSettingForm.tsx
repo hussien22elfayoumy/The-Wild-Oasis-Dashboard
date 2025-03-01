@@ -6,19 +6,39 @@ import {
   TUpdateSettings,
   updateSettingsSechema,
 } from '../../types/schema/update-settings-schema';
+import useSettings from './useSettings';
+import Spinner from '../../components/global/Spinner';
+import { useUpdateSettings } from './useUpdateSettings';
 
 export default function UpdateSettingForm() {
+  const { isLoading, settingsData } = useSettings();
+  const { isUpdatingSettings, updateSettingMutation } = useUpdateSettings();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TUpdateSettings>({
     resolver: zodResolver(updateSettingsSechema),
+    defaultValues: {
+      minBookingLength: settingsData?.minBookingLength!,
+      maxBookingLength: settingsData?.maxBookingLength!,
+      maxGuestsPerBooking: settingsData?.maxGuestsPerBooking!,
+      breakfastPrice: settingsData?.breakfastPrice!,
+    },
   });
 
   function onsubmit(values: TUpdateSettings) {
-    console.log(values);
+    updateSettingMutation(values);
   }
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full items-center justify-center pt-20">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <form
       onSubmit={handleSubmit(onsubmit)}
@@ -76,7 +96,9 @@ export default function UpdateSettingForm() {
         />
       </FormRow>
       <div className="flex justify-end gap-3 pt-4">
-        <Button variation="primary">Update Settings</Button>
+        <Button disabled={isUpdatingSettings} variation="primary">
+          Update Settings
+        </Button>
       </div>
     </form>
   );

@@ -78,6 +78,7 @@ function CreateCabinForm({
         error={errors?.name?.message}
       >
         <input
+          autoComplete="name"
           type="text"
           id="name"
           className="border-my-grey-200 bg-my-grey-0 rounded-md border p-2 shadow"
