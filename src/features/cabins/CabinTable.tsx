@@ -6,22 +6,45 @@ import { useCabins } from './useCabins';
 export default function CabinTable() {
   const [searchParmas] = useSearchParams();
   const { isLoading, cabinsData } = useCabins();
-
+  // TODO: Cabin filterations
   const filter = searchParmas.get('discount') || 'all';
 
   let filterdCabins;
 
-  if (filter === 'all') {
-    filterdCabins = cabinsData;
-  }
+  if (filter === 'all') filterdCabins = cabinsData;
 
-  if (filter === 'with-discount') {
+  if (filter === 'with-discount')
     filterdCabins = cabinsData?.filter((cabin) => cabin.discount! > 0);
-  }
 
-  if (filter === 'no-discount') {
+  if (filter === 'no-discount')
     filterdCabins = cabinsData?.filter((cabin) => cabin.discount === 0);
-  }
+
+  // TODO: cabin sort by
+
+  const sortBy = searchParmas.get('sortBy') || 'name-asc';
+
+  const [field, direction] = sortBy.split('-') as [
+    'name' | 'regularPrice' | 'maxCapacity',
+    'asc' | 'desc',
+  ];
+  const modifier = direction === 'asc' ? 1 : -1;
+
+  const sortedCabins = filterdCabins?.sort((a, b) => {
+    const aValue = a[field];
+    const bValue = b[field];
+
+    if (aValue == null || bValue == null) return 0;
+
+    if (field === 'regularPrice' || field === 'maxCapacity') {
+      return (+aValue - +bValue) * modifier;
+    }
+
+    if (field === 'name') {
+      return (aValue as string).localeCompare(bValue as string) * modifier;
+    }
+
+    return 0;
+  });
 
   if (isLoading) {
     return (
@@ -45,7 +68,7 @@ export default function CabinTable() {
       </thead>
       <tbody className="w-full">
         <>
-          {filterdCabins?.map((cabin) => (
+          {sortedCabins?.map((cabin) => (
             <CabinRow key={cabin.id} cabin={cabin} />
           ))}
         </>
