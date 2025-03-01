@@ -25,6 +25,7 @@ export default function Filter({ options, filterField }: IFilterProps) {
           size="medium"
           variation="filter"
           active={currentFilter === option.value}
+          disabled={currentFilter === option.value}
         >
           {option.value}
         </Button>

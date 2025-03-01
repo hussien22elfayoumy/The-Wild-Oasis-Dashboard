@@ -33,7 +33,7 @@ const Button = ({
 
   return (
     <button
-      className={`${baseStyles} ${sizeStyles[size]} ${variationStyles[variation]} disabled:cursor-not-allowed disabled:opacity-20`}
+      className={`${baseStyles} ${sizeStyles[size]} ${variationStyles[variation]} disabled:cursor-not-allowed disabled:opacity-80`}
       {...props}
     >
       {children}
