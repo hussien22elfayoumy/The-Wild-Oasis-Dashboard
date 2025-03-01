@@ -35,12 +35,12 @@ export default function CabinTable() {
 
     if (aValue == null || bValue == null) return 0;
 
-    if (field === 'regularPrice' || field === 'maxCapacity') {
-      return (+aValue - +bValue) * modifier;
+    if (typeof aValue === 'number' && typeof bValue === 'number') {
+      return (aValue - bValue) * modifier;
     }
 
-    if (field === 'name') {
-      return (aValue as string).localeCompare(bValue as string) * modifier;
+    if (typeof aValue === 'string' && typeof bValue === 'string') {
+      return aValue.localeCompare(bValue) * modifier;
     }
 
     return 0;
