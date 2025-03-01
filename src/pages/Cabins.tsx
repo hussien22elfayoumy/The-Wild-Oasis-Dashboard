@@ -12,7 +12,9 @@ function Cabins() {
       <div className="flex flex-col gap-1.5">
         <CabinTable />
 
-        <CreateCabin />
+        <div className="mt-4 self-end">
+          <CreateCabin />
+        </div>
       </div>
     </>
   );

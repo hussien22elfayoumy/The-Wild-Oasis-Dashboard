@@ -12,7 +12,7 @@ export default function CreateCabin() {
   return (
     <>
       <Button variation="primary" onClick={() => setOpenModal(true)}>
-        Create Cabin
+        Create new Cabin
       </Button>
       <Modal
         className="bg-my-grey-600/80 backdrop:backdrop-blur-md"
