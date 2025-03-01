@@ -1,17 +1,14 @@
-import { useState } from 'react';
+import { HiSquare2Stack, HiTrash } from 'react-icons/hi2';
 import { formatCurrency } from '../../utils/helpers';
-import CreateCabinForm from './CreateCabinForm';
-import { useDeleteCabin } from './useDeleteCabin';
-import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
-import { useCreateCabin } from './useCreateCabin';
 import UpdateCabin from './UpdateCabin';
+import { useCreateCabin } from './useCreateCabin';
+import { useDeleteCabin } from './useDeleteCabin';
+import Button from '../../components/global/Button';
 
 export default function CabinRow({ cabin }: { cabin: TCabins }) {
   const { isDeletingCabin, deleteCabinMutation } = useDeleteCabin();
   const { createCabinMutation, isCreatingCabin } = useCreateCabin();
   const isWorking = isCreatingCabin || isDeletingCabin;
-
-  const [showForm, setShowForm] = useState(false);
 
   function handleDuplicateCabin() {
     createCabinMutation({
@@ -56,22 +53,24 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
         ) : (
           <td>&mdash;</td>
         )}
-        <td className="font-medium">
-          <button
-            className="cursor-pointer disabled:text-red-500"
+        <td className="flex items-center gap-1">
+          <UpdateCabin disable={isWorking} cabin={cabin} />
+          <Button
+            disabled={isWorking}
+            size="small"
+            onClick={handleDuplicateCabin}
+          >
+            <HiSquare2Stack className="size-4" />
+          </Button>
+
+          <Button
+            variation="danger"
+            size="small"
             onClick={() => deleteCabinMutation(cabin.id)}
             disabled={isWorking}
           >
-            <HiTrash />
-          </button>
-          <UpdateCabin cabin={cabin} />
-          <button
-            disabled={isWorking}
-            className="cursor-pointer disabled:text-red-500"
-            onClick={handleDuplicateCabin}
-          >
-            <HiSquare2Stack />
-          </button>
+            <HiTrash className="size-4" />
+          </Button>
         </td>
       </tr>
     </>

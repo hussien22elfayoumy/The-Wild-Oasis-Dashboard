@@ -1,10 +1,16 @@
 import { Modal } from 'flowbite-react';
 import { useState } from 'react';
+import { HiPencil } from 'react-icons/hi2';
 import CreateCabinForm from './CreateCabinForm';
 import Button from '../../components/global/Button';
-import { HiPencil } from 'react-icons/hi2';
 
-export default function UpdateCabin({ cabin }: { cabin: TCabins }) {
+export default function UpdateCabin({
+  cabin,
+  disable,
+}: {
+  cabin: TCabins;
+  disable: boolean;
+}) {
   const [openModal, setOpenModal] = useState(false);
   function closeModal() {
     setOpenModal(false);
@@ -15,12 +21,13 @@ export default function UpdateCabin({ cabin }: { cabin: TCabins }) {
       <Button
         variation="primary"
         size="small"
+        disabled={disable}
         onClick={() => setOpenModal(true)}
       >
-        <HiPencil />
+        <HiPencil className="size-4" />
       </Button>
       <Modal
-        className="bg-my-grey-600/80 backdrop:backdrop-blur-md"
+        className="bg-my-grey-600/80 !z-50 backdrop:backdrop-blur-md"
         dismissible
         show={openModal}
         onClose={closeModal}
