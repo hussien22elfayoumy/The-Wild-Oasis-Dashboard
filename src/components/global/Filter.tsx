@@ -9,6 +9,8 @@ interface IFilterProps {
 export default function Filter({ options, filterField }: IFilterProps) {
   const [searchParams, setSearhParams] = useSearchParams();
 
+  const currentFilter = searchParams.get(filterField) || options.at(0)?.value;
+
   function handleClick(value: string) {
     searchParams.set(filterField, value);
     setSearhParams(searchParams);
@@ -22,7 +24,7 @@ export default function Filter({ options, filterField }: IFilterProps) {
           onClick={() => handleClick(option.value)}
           size="medium"
           variation="filter"
-          active={searchParams.get(filterField) === option.value}
+          active={currentFilter === option.value}
         >
           {option.value}
         </Button>
