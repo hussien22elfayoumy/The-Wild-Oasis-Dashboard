@@ -4,6 +4,7 @@ import CreateCabinForm from './CreateCabinForm';
 import { useDeleteCabin } from './useDeleteCabin';
 import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
 import { useCreateCabin } from './useCreateCabin';
+import UpdateCabin from './UpdateCabin';
 
 export default function CabinRow({ cabin }: { cabin: TCabins }) {
   const { isDeletingCabin, deleteCabinMutation } = useDeleteCabin();
@@ -63,13 +64,7 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
           >
             <HiTrash />
           </button>
-          <button
-            onClick={() => setShowForm((show) => !show)}
-            className="cursor-pointer disabled:text-red-500"
-            disabled={isWorking}
-          >
-            <HiPencil />
-          </button>
+          <UpdateCabin cabin={cabin} />
           <button
             disabled={isWorking}
             className="cursor-pointer disabled:text-red-500"
@@ -79,13 +74,6 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
           </button>
         </td>
       </tr>
-      {showForm && (
-        <tr>
-          <td>
-            <CreateCabinForm cabinDefaultValues={cabin} />
-          </td>
-        </tr>
-      )}
     </>
   );
 }

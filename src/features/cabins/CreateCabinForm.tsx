@@ -12,8 +12,10 @@ import { useState } from 'react';
 
 function CreateCabinForm({
   cabinDefaultValues,
+  onCloseModal,
 }: {
   cabinDefaultValues?: TCabins;
+  onCloseModal?: () => void;
 }) {
   const { isCreatingCabin, createCabinMutation } = useCreateCabin();
   const { isUpdatingCabin, updateCabinMutation } = useUpdateCabin();
@@ -54,15 +56,23 @@ function CreateCabinForm({
       typeof values.image === 'string' ? values.image : values.image[0];
 
     if (isEditMode)
-      updateCabinMutation({
-        newCabinData: { ...values, image },
-        id: cabinDefaultValues?.id!,
-      });
+      updateCabinMutation(
+        {
+          newCabinData: { ...values, image },
+          id: cabinDefaultValues?.id!,
+        },
+        {
+          onSuccess: () => onCloseModal?.(),
+        }
+      );
     else
       createCabinMutation(
         { ...values, image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
   }
@@ -132,7 +142,7 @@ function CreateCabinForm({
       >
         <textarea
           id="description"
-          className="border-my-grey-200 bg-my-grey-0 min-h-20 rounded-md border p-2 shadow"
+          className="border-my-grey-200 bg-my-grey-0 min-h-24 rounded-md border p-2 shadow"
           {...register('description')}
         />
       </FormRow>
@@ -148,7 +158,7 @@ function CreateCabinForm({
       </FormRow>
 
       <div className="flex justify-end gap-3 pt-3">
-        <Button type="reset" variation="secondary">
+        <Button onClick={onCloseModal} type="reset" variation="secondary">
           Cancel
         </Button>
         <Button
