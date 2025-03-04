@@ -6,15 +6,22 @@ export function useBookings() {
   const [searchParams] = useSearchParams();
 
   // TODO: FILTER
-  const filterVlue = searchParams.get('status') || 'all';
+  const filterValue = searchParams.get('status') || 'all';
   const filter =
-    !filterVlue || filterVlue === 'all'
+    !filterValue || filterValue === 'all'
       ? null
-      : { field: 'status', value: filterVlue };
+      : { field: 'status', value: filterValue };
+
+  // TODO:  SORT
+  const sortBy = searchParams.get('sortBy') || 'startDate-desc';
+  const [field, direction] = sortBy.split('-');
+  console.log(field, direction);
+
+  const sort = { field, direction };
 
   const { data: bookingsData, isLoading } = useQuery({
-    queryKey: ['bookings', filter],
-    queryFn: () => getBookings({ filter }),
+    queryKey: ['bookings', filter, sort],
+    queryFn: () => getBookings({ filter, sort }),
   });
 
   return { bookingsData, isLoading };

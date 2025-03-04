@@ -2,14 +2,19 @@ import { supabase } from '../db/supabase';
 
 export async function getBookings({
   filter,
+  sort,
 }: {
   filter: { field: string; value: string } | null;
+  sort: { field: string; direction: string };
 }) {
   let query = supabase
     .from('bookings')
     .select('* , cabins(name), guests(fullName, email)');
 
-  if (filter !== null) await query.eq(filter?.field!, filter?.value!);
+  if (filter) await query.eq(filter?.field!, filter?.value!);
+
+  if (sort)
+    await query.order(sort.field, { ascending: sort.direction === 'asc' });
 
   const { data, error } = await query;
 
