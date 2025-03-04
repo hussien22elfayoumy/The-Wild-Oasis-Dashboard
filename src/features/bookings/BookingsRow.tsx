@@ -40,7 +40,7 @@ export default function BookingsRow({
         </td>
 
         <td
-          className={`text-${statusTypeColor[bookingDetails.status as 'unconfirmed' | 'checked-in' | 'checked-out']} w-fit rounded-full px-3 py-1 font-[Sono] text-base font-semibold`}
+          className={`text-${statusTypeColor[bookingDetails.status as 'unconfirmed' | 'checked-in' | 'checked-out']} w-fit rounded-full px-3 py-1 font-[Sono] text-sm font-medium uppercase`}
         >
           {bookingDetails.status?.replace('-', ' ')}
         </td>
