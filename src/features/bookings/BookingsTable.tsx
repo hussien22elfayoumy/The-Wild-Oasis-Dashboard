@@ -6,8 +6,6 @@ import { useBookings } from './useBookings';
 export default function BookingsTable() {
   const { bookingsData, isLoading } = useBookings();
 
-  if (!bookingsData?.length) return <Empty resourceName="bookings" />;
-
   if (isLoading) {
     return (
       <div className="flex w-full items-center justify-center pt-20">
@@ -15,6 +13,8 @@ export default function BookingsTable() {
       </div>
     );
   }
+
+  if (!bookingsData?.length) return <Empty resourceName="bookings" />;
 
   return (
     <table className="bg-my-grey-0 border-my-grey-200 mx-auto overflow-x-scroll rounded-lg border text-left text-sm">

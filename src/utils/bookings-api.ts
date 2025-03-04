@@ -1,9 +1,17 @@
 import { supabase } from '../db/supabase';
 
-export async function getBookings() {
-  const { data, error } = await supabase
+export async function getBookings({
+  filter,
+}: {
+  filter: { field: string; value: string } | null;
+}) {
+  let query = supabase
     .from('bookings')
     .select('* , cabins(name), guests(fullName, email)');
+
+  if (filter !== null) await query.eq(filter?.field!, filter?.value!);
+
+  const { data, error } = await query;
 
   if (error) {
     // console.error(error);
