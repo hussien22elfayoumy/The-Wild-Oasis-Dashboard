@@ -69,7 +69,7 @@
       background-color 0.3s;
     min-height: 100vh;
 
-    @apply text-my-grey-700;
+    @apply text-my-grey-700 text-base;
   }
 
   .active {

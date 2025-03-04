@@ -1,4 +1,5 @@
 import Empty from '../../components/global/Empty';
+import Pagination from '../../components/global/Paginations';
 import Spinner from '../../components/global/Spinner';
 import BookingsRow from './BookingsRow';
 import { useBookings } from './useBookings';
@@ -35,6 +36,13 @@ export default function BookingsTable() {
           ))}
         </>
       </tbody>
+      <tfoot>
+        <tr>
+          <td className="p-4 pb-1">
+            <Pagination />
+          </td>
+        </tr>
+      </tfoot>
     </table>
   );
 }
