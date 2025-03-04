@@ -8,7 +8,7 @@ export default function AppLayout() {
         Header
       </header>
       <Sidebar />
-      <main className="bg-my-grey-50 overflow-auto p-10 pb-16">
+      <main className="bg-my-grey-50 overflow-auto p-5 pb-16 md:p-10">
         <div className="mx-auto flex max-w-[1200px] flex-col gap-8">
           <Outlet />
         </div>

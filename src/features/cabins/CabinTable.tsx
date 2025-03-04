@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import Spinner from '../../components/global/Spinner';
 import CabinRow from './CabinRow';
 import { useCabins } from './useCabins';
+import Empty from '../../components/global/Empty';
 
 export default function CabinTable() {
   const [searchParmas] = useSearchParams();
@@ -46,6 +47,8 @@ export default function CabinTable() {
     return 0;
   });
 
+  if (!cabinsData?.length) return <Empty resourceName="Cabins" />;
+
   if (isLoading) {
     return (
       <div className="flex w-full items-center justify-center pt-20">
@@ -55,11 +58,11 @@ export default function CabinTable() {
   }
 
   return (
-    <table className="bg-my-grey-0 border-my-grey-200 overflow-hidden rounded-lg border text-left text-sm">
+    <table className="bg-my-grey-0 border-my-grey-200 mx-auto overflow-hidden rounded-lg border text-left text-sm">
       <thead className="w-full">
-        <tr className="border-my-grey-200 bg-my-grey-50 text-my-grey-600 grid grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] items-center gap-x-4 border-b p-4 px-6 font-semibold tracking-wider uppercase">
+        <tr className="border-my-grey-200 bg-my-grey-50 text-my-grey-600 grid grid-cols-[0.6fr_15rem_18rem_8.5rem_8.5rem_8.5rem] items-center gap-x-4 border-b p-4 px-6 font-semibold tracking-wider uppercase">
           <td></td>
-          <td>Cabin</td>
+          <td className="text-center">Cabin</td>
           <td>Capacity</td>
           <td>Price</td>
           <td>Discount</td>
