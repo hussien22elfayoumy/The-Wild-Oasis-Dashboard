@@ -13,6 +13,7 @@ export default function Filter({ options, filterField }: IFilterProps) {
 
   function handleClick(value: string) {
     searchParams.set(filterField, value);
+    searchParams.set('page', '1');
     setSearhParams(searchParams);
   }
 

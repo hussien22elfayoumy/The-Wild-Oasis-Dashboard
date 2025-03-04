@@ -2,8 +2,7 @@ import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import Button from './Button';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-
-const RES_PER_PAGE = 10;
+import { RES_PER_PAGE } from '../../constants/global';
 
 const Pagination = ({ count }: { count: number }) => {
   const [searchParams, setSearhParams] = useSearchParams();

@@ -5,7 +5,7 @@ import BookingsRow from './BookingsRow';
 import { useBookings } from './useBookings';
 
 export default function BookingsTable() {
-  const { bookingsData, isLoading } = useBookings();
+  const { bookingsData, isLoading, count } = useBookings();
 
   if (isLoading) {
     return (
@@ -39,7 +39,7 @@ export default function BookingsTable() {
       <tfoot>
         <tr className="border-my-grey-200 border">
           <td>
-            <Pagination count={bookingsData.length} />
+            <Pagination count={count!} />
           </td>
         </tr>
       </tfoot>

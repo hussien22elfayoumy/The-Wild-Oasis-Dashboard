@@ -1,28 +1,38 @@
+import { RES_PER_PAGE } from '../constants/global';
 import { supabase } from '../db/supabase';
 
 export async function getBookings({
   filter,
   sort,
+  page,
 }: {
   filter: { field: string; value: string } | null;
   sort: { field: string; direction: string };
+  page: number;
 }) {
   let query = supabase
     .from('bookings')
-    .select('* , cabins(name), guests(fullName, email)');
+    .select('* , cabins(name), guests(fullName, email)', { count: 'exact' });
 
   if (filter) await query.eq(filter?.field!, filter?.value!);
 
   if (sort)
     await query.order(sort.field, { ascending: sort.direction === 'asc' });
 
-  const { data, error } = await query;
+  if (page) {
+    const from = (page - 1) * RES_PER_PAGE;
+    const to = from + RES_PER_PAGE - 1;
+
+    await query.range(from, to);
+  }
+
+  const { data, error, count } = await query;
 
   if (error) {
     // console.error(error);
     throw new Error("Bookings couldn't be loaded");
   }
-  return data as TBookingWithRelations[];
+  return { data, count } as { data: TBookingWithRelations[]; count: number };
 }
 
 /* export async function getBooking(id: number) {
