@@ -1,7 +1,6 @@
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import Button from './Button';
 import { useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { RES_PER_PAGE } from '../../constants/global';
 
 const Pagination = ({ count }: { count: number }) => {
@@ -25,18 +24,6 @@ const Pagination = ({ count }: { count: number }) => {
     searchParams.set('page', String(prev));
     setSearhParams(searchParams);
   }
-
-  useEffect(() => {
-    if (currentPage > pagesCount) {
-      searchParams.set('page', String(pagesCount));
-      setSearhParams(searchParams);
-    }
-
-    if (currentPage < 1) {
-      searchParams.set('page', String(1));
-      setSearhParams(searchParams);
-    }
-  }, []);
 
   if (pagesCount <= 1) return null;
 
