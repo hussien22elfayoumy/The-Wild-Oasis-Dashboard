@@ -30,7 +30,7 @@ const Button = ({
       active ? ' bg-my-brand-600 text-my-brand-50 ' : 'bg-my-grey-0'
     } disabled:hover:bg-gray-0  rounded-sm border-none px-2 py-1 text-sm font-medium transition-all duration-300`,
     pagination:
-      'bg-my-gray-50 hover:bg-my-brand-600 hover:text-my-brand-50 flex items-center justify-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300',
+      'bg-my-gray-50 hover:bg-my-brand-600 hover:text-my-brand-50 flex items-center justify-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 disabled:hover:text-my-grey-600 disabled:hover:bg-transparent',
   };
 
   return (
