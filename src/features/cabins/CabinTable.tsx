@@ -60,9 +60,9 @@ export default function CabinTable() {
   return (
     <table className="bg-my-grey-0 border-my-grey-200 mx-auto overflow-hidden rounded-lg border text-left text-sm">
       <thead className="w-full">
-        <tr className="border-my-grey-200 bg-my-grey-50 text-my-grey-600 grid grid-cols-[0.6fr_15rem_18rem_8.5rem_8.5rem_8.5rem] items-center gap-x-4 border-b p-4 px-6 font-semibold tracking-wider uppercase">
+        <tr className="border-my-grey-200 bg-my-grey-50 text-my-grey-600 grid grid-cols-[6.25rem_15rem_18rem_8.5rem_8.5rem_8.5rem] items-center gap-x-4 border-b p-4 px-6 font-semibold tracking-wider uppercase">
           <td></td>
-          <td className="text-center">Cabin</td>
+          <td>Cabin</td>
           <td>Capacity</td>
           <td>Price</td>
           <td>Discount</td>

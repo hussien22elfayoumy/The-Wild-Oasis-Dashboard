@@ -24,17 +24,17 @@ export default function CabinRow({ cabin }: { cabin: TCabins }) {
     <>
       <tr
         key={cabin.id}
-        className="border-my-grey-200 grid grid-cols-[0.6fr_15rem_18rem_8.5rem_8.5rem_8.5rem] items-center gap-x-4 border-b px-6 py-3.5 last:border-b-0"
+        className="border-my-grey-200 grid grid-cols-[6.25rem_15rem_18rem_8.5rem_8.5rem_8.5rem] items-center gap-x-4 border-b px-6 py-3.5 last:border-b-0"
       >
-        <td>
+        <td className="w-16">
           <img
             src={cabin.image ?? ''}
             alt={cabin.name ?? ''}
-            className="block aspect-[3/2] w-16 -translate-x-1.5 scale-150 object-cover object-center"
+            className="aspect-[3/2]-translate-x-1.5 border-my-grey-400 block scale-150 border object-cover object-center"
           />
         </td>
 
-        <td className="text-my-grey-600 text-center font-[Sono] text-base font-semibold">
+        <td className="text-my-grey-600 font-[Sono] text-base font-semibold">
           {cabin.name}
         </td>
 
