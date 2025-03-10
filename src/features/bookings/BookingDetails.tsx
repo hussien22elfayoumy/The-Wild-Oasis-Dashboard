@@ -7,11 +7,14 @@ import { useMoveBack } from '../../hooks/useMoveBack';
 import { useCheckout } from '../check-in-out/useCheckout';
 import BookingDataBox from './BookingDataBox';
 import { useBooking } from './useBooking';
+import { HiTrash } from 'react-icons/hi2';
+import { useDeleteBooking } from '../check-in-out/useDeleteBooking';
 
 function BookingDetail() {
   const moveBack = useMoveBack();
   const { bookingData, isLoading } = useBooking();
   const { checkoutMutation, isCheckingOut } = useCheckout();
+  const { deleteBookingMutation, isDeletingBooking } = useDeleteBooking();
   const navigate = useNavigate();
 
   const statusTypeColor = {
@@ -75,6 +78,22 @@ function BookingDetail() {
             </span>
           </Button>
         )}
+
+        <Button
+          disabled={isDeletingBooking}
+          onClick={() =>
+            deleteBookingMutation(bookingData.id, {
+              onSuccess: () => navigate(-1),
+            })
+          }
+          variation="danger"
+        >
+          <span className="flex items-center gap-1">
+            <HiTrash />
+            {bookingData.status === 'checked-out' ? 'Delete ' : 'Cancel '}
+            booking
+          </span>
+        </Button>
         <Button onClick={moveBack} variation="secondary">
           Back
         </Button>
