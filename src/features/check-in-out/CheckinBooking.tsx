@@ -1,13 +1,22 @@
+import { useEffect, useState } from 'react';
 import Button from '../../components/global/Button';
 import Empty from '../../components/global/Empty';
 import Spinner from '../../components/global/Spinner';
 import { useMoveBack } from '../../hooks/useMoveBack';
 import BookingDataBox from '../bookings/BookingDataBox';
 import { useBooking } from '../bookings/useBooking';
+import { formatCurrency } from '../../utils/helpers';
+import { useCheckin } from './useCheckin';
 
 export default function CheckinBooking() {
+  const [confirmPaid, setConfirmPaid] = useState(false);
   const moveBack = useMoveBack();
   const { bookingData, isLoading } = useBooking();
+  const { chekinMutaion, isCheckingIn } = useCheckin();
+
+  useEffect(() => {
+    setConfirmPaid(bookingData?.isPaid!);
+  }, [bookingData]);
 
   if (isLoading) {
     return (
@@ -32,8 +41,31 @@ export default function CheckinBooking() {
 
       <BookingDataBox booking={bookingData} />
 
+      <div className="bg-my-grey-0 border-my-grey-100 rounded-md px-8 py-6">
+        <div className="flex gap-4">
+          <input
+            type="checkbox"
+            onChange={() => setConfirmPaid((confirm) => !confirm)}
+            checked={confirmPaid}
+            id="confirm"
+            className="accent-my-brand-600 disabled:accent-my-brand-600 h-6 w-6 origin-[0] transform outline-offset-2"
+            disabled={confirmPaid}
+          />
+          <label htmlFor="confirm" className="flex flex-1 items-center gap-2">
+            I confirm That
+            {bookingData.guests.fullName}
+            has paid the total amount of{' '}
+            {formatCurrency(bookingData.totalPrice!)}
+          </label>
+        </div>
+      </div>
+
       <div className="flex justify-end gap-3">
-        <Button onClick={moveBack} variation="primary">
+        <Button
+          disabled={!confirmPaid || isCheckingIn}
+          onClick={() => chekinMutaion({ isPaid: true, status: 'checked-in' })}
+          variation="primary"
+        >
           Check in booking #{bookingData.id}
         </Button>
         <Button onClick={moveBack} variation="secondary">

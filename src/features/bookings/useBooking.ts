@@ -6,7 +6,7 @@ export function useBooking() {
   const { bookingId } = useParams();
 
   const { data: bookingData, isLoading } = useQuery({
-    queryKey: ['booking'],
+    queryKey: ['booking', bookingId],
     queryFn: () => getBooking(+bookingId!),
     retry: false,
   });
