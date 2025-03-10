@@ -50,13 +50,19 @@ function BookingDataBox({ booking }: { booking: TBookingWithRelations }) {
     hasBreakfast,
     observations,
     isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
+    guests: {
+      fullName: guestName,
+      email,
+      nationality,
+      countryFlag,
+      nationalID,
+    },
     cabins: { name: cabinName },
   } = booking;
 
   return (
     <section className="border-my-grey-100 overflow-hidden rounded-md border bg-white">
-      <header className="bg-brand-500 text-my-indigo-100 flex items-center justify-between p-8 text-lg font-medium">
+      <header className="bg-my-brand-500 text-my-indigo-100 flex flex-col gap-3 p-8 text-lg font-medium md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-4 text-lg font-semibold">
           <HiOutlineHomeModern className="h-8 w-8" />
           <p>
@@ -75,21 +81,25 @@ function BookingDataBox({ booking }: { booking: TBookingWithRelations }) {
       </header>
 
       <section className="p-8 pt-12">
-        <div className="text-my-grey-500 mb-4 flex items-center gap-3">
-          {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
-          <p className="text-my-grey-700 font-medium">
-            {guestName} {numGuests! > 1 ? `+ ${numGuests! - 1} guests` : ''}
-          </p>
-          <span>&bull;</span>
+        <div className="text-my-grey-500 mb-4 flex flex-col gap-3 md:flex-row md:items-center">
+          <div className="flex gap-1">
+            {countryFlag && (
+              <Flag src={countryFlag} alt={`Flag of ${nationality}`} />
+            )}
+            <p className="text-my-grey-700 font-medium">
+              {guestName} {numGuests! > 1 ? `+ ${numGuests! - 1} guests` : ''}
+            </p>
+          </div>
+          <span className="hidden md:block">&bull;</span>
           <p>{email}</p>
-          <span>&bull;</span>
+          <span className="hidden md:block">&bull;</span>
           <p>National ID {nationalID}</p>
         </div>
 
         {observations && (
           <DataItem
             icon={
-              <HiOutlineChatBubbleBottomCenterText className="text-brand-600 h-6 w-6" />
+              <HiOutlineChatBubbleBottomCenterText className="text-my-brand-600 h-6 w-6" />
             }
             label="Observations"
           >
@@ -98,28 +108,37 @@ function BookingDataBox({ booking }: { booking: TBookingWithRelations }) {
         )}
 
         <DataItem
-          icon={<HiOutlineCheckCircle className="text-brand-600 h-6 w-6" />}
+          icon={<HiOutlineCheckCircle className="text-my-brand-600 h-6 w-6" />}
           label="Breakfast included?"
         >
           {hasBreakfast ? 'Yes' : 'No'}
         </DataItem>
 
         <div
-          className={`mt-6 flex items-center justify-between rounded-md p-4 ${
+          className={`mt-6 flex flex-col gap-2 rounded-md p-4 md:flex-row md:items-center md:justify-between ${
             isPaid
               ? 'bg-my-green-100 text-my-green-700'
               : 'bg-my-yellow-100 text-my-yellow-700'
           }`}
         >
-          <DataItem
+          <div className="flex flex-col gap-4 py-2 md:flex-row md:items-center">
+            <span className="flex items-center gap-2 font-medium">
+              <HiOutlineCurrencyDollar className="h-6 w-6" />
+              <span>Total price</span>
+            </span>
+            {formatCurrency(totalPrice!)}
+            {hasBreakfast &&
+              ` (${formatCurrency(cabinPrice!)} cabin + ${formatCurrency(extrasPrice!)} breakfast)`}
+          </div>
+          {/* <DataItem
             icon={<HiOutlineCurrencyDollar className="h-6 w-6" />}
             label="Total price"
           >
             {formatCurrency(totalPrice!)}
             {hasBreakfast &&
               ` (${formatCurrency(cabinPrice!)} cabin + ${formatCurrency(extrasPrice!)} breakfast)`}
-          </DataItem>
-          <p className="text-sm font-semibold uppercase">
+          </DataItem> */}
+          <p className="self-end text-sm font-semibold uppercase md:self-auto">
             {isPaid ? 'Paid' : 'Will pay at property'}
           </p>
         </div>

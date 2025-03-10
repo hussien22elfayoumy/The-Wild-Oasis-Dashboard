@@ -1,10 +1,13 @@
 import Button from '../../components/global/Button';
+import Empty from '../../components/global/Empty';
+import Spinner from '../../components/global/Spinner';
 import { useMoveBack } from '../../hooks/useMoveBack';
 import BookingDataBox from './BookingDataBox';
+import { useBooking } from './useBooking';
 
 function BookingDetail() {
-  const status = 'checked-in';
   const moveBack = useMoveBack();
+  const { bookingData, isLoading } = useBooking();
 
   const statusTypeColor = {
     unconfirmed: 'text-my-blue-700 bg-my-blue-100',
@@ -12,15 +15,25 @@ function BookingDetail() {
     'checked-out': 'text-my-silver-700 bg-my-silver-100',
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex w-full items-center justify-center py-20">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (!bookingData) return <Empty resourceName="bookings" />;
+
   return (
     <>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <h1 className="text-3xl font-semibold">Booking #X</h1>
+          <h1 className="text-3xl font-semibold">Booking #{bookingData.id}</h1>
           <p
-            className={`text-${statusTypeColor[status as 'unconfirmed' | 'checked-in' | 'checked-out']} w-fit rounded-full px-3 py-1 font-[Sono] text-sm font-medium uppercase`}
+            className={`text-${statusTypeColor[bookingData.status as 'unconfirmed' | 'checked-in' | 'checked-out']} w-fit rounded-full px-3 py-1 font-[Sono] text-sm font-medium uppercase`}
           >
-            {status?.replace('-', ' ')}
+            {bookingData.status?.replace('-', ' ')}
           </p>
         </div>
 
@@ -29,7 +42,7 @@ function BookingDetail() {
         </Button>
       </div>
 
-      {/* <BookingDataBox booking={booking} /> */}
+      <BookingDataBox booking={bookingData} />
 
       <div className="flex justify-end gap-3">
         <Button onClick={moveBack} variation="secondary">
