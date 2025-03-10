@@ -1,6 +1,12 @@
 interface ButtonProps {
   children: React.ReactNode;
-  variation?: 'primary' | 'secondary' | 'danger' | 'filter' | 'pagination';
+  variation?:
+    | 'primary'
+    | 'secondary'
+    | 'danger'
+    | 'filter'
+    | 'pagination'
+    | 'text';
   size?: 'small' | 'medium' | 'large';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'submit' | 'reset' | 'button' | undefined;
@@ -24,13 +30,14 @@ const Button = ({
   const variationStyles = {
     primary: 'text-my-brand-50 shadow-sm bg-my-brand-600 hover:bg-my-brand-700',
     secondary:
-      'text-my-grey-600 shadow-sm bg-my-grey-0 border border-my-grey-200 hover:bg-my-grey-50',
+      'text-my-grey-600 shadow-sm bg-my-grey-100 text-my-grey-700 hover:bg-my-grey-200  ',
     danger: 'text-my-red-100 shadow-sm bg-my-red-700 hover:bg-my-red-800',
     filter: ` disabled:hover:text-my-grey-900 hover:bg-my-brand-600 hover:text-my-brand-50 ${
       active ? ' bg-my-brand-600 text-my-brand-50 ' : 'bg-my-grey-0'
-    } disabled:hover:bg-gray-0  rounded-sm border-none px-2 py-1 text-sm font-medium transition-all duration-300`,
+    } disabled:hover:bg-my-grey-0  rounded-sm border-none px-2 py-1 text-sm font-medium transition-all duration-300`,
     pagination:
-      'bg-my-gray-50 hover:bg-my-brand-600 hover:text-my-brand-50 flex items-center justify-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 disabled:hover:text-my-grey-600 disabled:hover:bg-transparent',
+      'bg-my-my-grey-50 hover:bg-my-brand-600 hover:text-my-brand-50 flex items-center justify-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-300 disabled:hover:text-my-grey-600 disabled:hover:bg-transparent',
+    text: 'text-my-brand-600 hover:text-my-brand-700 rounded-sm border-none bg-none font-medium transition-colors',
   };
 
   return (

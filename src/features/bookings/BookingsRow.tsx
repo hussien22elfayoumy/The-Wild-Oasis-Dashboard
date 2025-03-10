@@ -1,5 +1,7 @@
 import { format, isToday } from 'date-fns';
 import { formatCurrency, formatDistanceFromNow } from '../../utils/helpers';
+import { Link } from 'react-router-dom';
+import { HiEye } from 'react-icons/hi2';
 
 export default function BookingsRow({
   bookingDetails,
@@ -46,6 +48,11 @@ export default function BookingsRow({
         </td>
         <td className="font-[Sono] text-base font-semibold">
           {formatCurrency(bookingDetails.totalPrice!)}
+        </td>
+        <td className="font-[Sono] text-base font-semibold">
+          <Link to={`/bookings/${bookingDetails.id}`}>
+            <HiEye />
+          </Link>
         </td>
       </tr>
     </>
