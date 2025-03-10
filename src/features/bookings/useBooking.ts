@@ -8,7 +8,6 @@ export function useBooking() {
   const { data: bookingData, isLoading } = useQuery({
     queryKey: ['booking'],
     queryFn: () => getBooking(+bookingId!),
-
     retry: false,
   });
 

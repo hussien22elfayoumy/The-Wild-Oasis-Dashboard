@@ -1,13 +1,16 @@
+import { LuMapPinCheck } from 'react-icons/lu';
 import Button from '../../components/global/Button';
 import Empty from '../../components/global/Empty';
 import Spinner from '../../components/global/Spinner';
 import { useMoveBack } from '../../hooks/useMoveBack';
 import BookingDataBox from './BookingDataBox';
 import { useBooking } from './useBooking';
+import { useNavigate } from 'react-router-dom';
 
 function BookingDetail() {
   const moveBack = useMoveBack();
   const { bookingData, isLoading } = useBooking();
+  const navigate = useNavigate();
 
   const statusTypeColor = {
     unconfirmed: 'text-my-blue-700 bg-my-blue-100',
@@ -45,6 +48,17 @@ function BookingDetail() {
       <BookingDataBox booking={bookingData} />
 
       <div className="flex justify-end gap-3">
+        {bookingData.status === 'unconfirmed' && (
+          <Button
+            onClick={() => navigate(`/checkin/${bookingData.id}`)}
+            variation="primary"
+          >
+            <span className="flex items-center gap-1">
+              <LuMapPinCheck />
+              Check in
+            </span>
+          </Button>
+        )}
         <Button onClick={moveBack} variation="secondary">
           Back
         </Button>
