@@ -1,8 +1,7 @@
 import { format, isToday } from 'date-fns';
-import { formatCurrency, formatDistanceFromNow } from '../../utils/helpers';
-import { Link } from 'react-router-dom';
 import { HiEye } from 'react-icons/hi2';
-import { LuMapPinCheck } from 'react-icons/lu';
+import { Link } from 'react-router-dom';
+import { formatCurrency, formatDistanceFromNow } from '../../utils/helpers';
 
 export default function BookingsRow({
   bookingDetails,
