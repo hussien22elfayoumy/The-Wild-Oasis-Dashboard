@@ -20,7 +20,7 @@ export default function BookingsTable() {
   return (
     <table className="bg-my-grey-0 border-my-grey-200 mx-auto border text-left text-sm">
       <thead className="w-full">
-        <tr className="border-my-grey-200 bg-my-grey-50 text-my-grey-600 grid grid-cols-[6.2rem_16rem_20rem_12.5rem_8.5rem_3.2rem] items-center gap-x-4 border-b p-4 px-6 font-semibold tracking-wider uppercase">
+        <tr className="border-my-grey-200 bg-my-grey-50 text-my-grey-600 grid grid-cols-[6.2rem_15rem_20rem_11.5rem_7.5rem_6.2rem] items-center gap-x-4 border-b p-4 px-6 font-semibold tracking-wider uppercase">
           <td>Cabin</td>
           <td>Guest</td>
           <td>Dates</td>

@@ -2,6 +2,7 @@ import { format, isToday } from 'date-fns';
 import { formatCurrency, formatDistanceFromNow } from '../../utils/helpers';
 import { Link } from 'react-router-dom';
 import { HiEye } from 'react-icons/hi2';
+import { LuMapPinCheck } from 'react-icons/lu';
 
 export default function BookingsRow({
   bookingDetails,
@@ -16,7 +17,7 @@ export default function BookingsRow({
 
   return (
     <>
-      <tr className="border-my-grey-200 grid grid-cols-[6.2rem_16rem_20rem_12.5rem_8.5rem_3.2rem] items-center gap-x-4 border-b px-6 py-3.5 last:border-b-0">
+      <tr className="border-my-grey-200 grid grid-cols-[6.2rem_15rem_20rem_11.5rem_7.5rem_6.2rem] items-center gap-x-4 border-b px-6 py-3.5 last:border-b-0">
         <td className="text-my-grey-600 font-[Sono] text-base font-medium">
           {bookingDetails.cabins.name}
         </td>
@@ -49,9 +50,23 @@ export default function BookingsRow({
         <td className="font-[Sono] text-base font-semibold">
           {formatCurrency(bookingDetails.totalPrice!)}
         </td>
-        <td className="font-[Sono] text-base font-semibold">
-          <Link to={`/bookings/${bookingDetails.id}`}>
+        <td className="flex flex-col gap-0.5 font-[Sono] text-base">
+          {bookingDetails.status === 'unconfirmed' && (
+            <Link
+              className="text-my-brand-600 flex items-center gap-1 underline-offset-2 hover:underline"
+              to={`/checkin/${bookingDetails.id}`}
+            >
+              <LuMapPinCheck />
+
+              <span>Checkin</span>
+            </Link>
+          )}
+          <Link
+            className="text-my-brand-600 flex items-center gap-1 underline-offset-2 hover:underline"
+            to={`/bookings/${bookingDetails.id}`}
+          >
             <HiEye />
+            <span>Details</span>
           </Link>
         </td>
       </tr>

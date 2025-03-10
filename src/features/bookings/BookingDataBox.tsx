@@ -130,14 +130,7 @@ function BookingDataBox({ booking }: { booking: TBookingWithRelations }) {
             {hasBreakfast &&
               ` (${formatCurrency(cabinPrice!)} cabin + ${formatCurrency(extrasPrice!)} breakfast)`}
           </div>
-          {/* <DataItem
-            icon={<HiOutlineCurrencyDollar className="h-6 w-6" />}
-            label="Total price"
-          >
-            {formatCurrency(totalPrice!)}
-            {hasBreakfast &&
-              ` (${formatCurrency(cabinPrice!)} cabin + ${formatCurrency(extrasPrice!)} breakfast)`}
-          </DataItem> */}
+
           <p className="self-end text-sm font-semibold uppercase md:self-auto">
             {isPaid ? 'Paid' : 'Will pay at property'}
           </p>
