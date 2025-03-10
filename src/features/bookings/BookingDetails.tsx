@@ -1,15 +1,17 @@
-import { LuMapPinCheck } from 'react-icons/lu';
+import { FaDoorClosed, FaDoorOpen } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/global/Button';
 import Empty from '../../components/global/Empty';
 import Spinner from '../../components/global/Spinner';
 import { useMoveBack } from '../../hooks/useMoveBack';
+import { useCheckout } from '../check-in-out/useCheckout';
 import BookingDataBox from './BookingDataBox';
 import { useBooking } from './useBooking';
-import { useNavigate } from 'react-router-dom';
 
 function BookingDetail() {
   const moveBack = useMoveBack();
   const { bookingData, isLoading } = useBooking();
+  const { checkoutMutation, isCheckingOut } = useCheckout();
   const navigate = useNavigate();
 
   const statusTypeColor = {
@@ -30,7 +32,7 @@ function BookingDetail() {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col justify-between gap-1 md:flex-row md:items-center">
         <div className="flex items-center gap-6">
           <h1 className="text-3xl font-semibold">Booking #{bookingData.id}</h1>
           <p
@@ -40,9 +42,11 @@ function BookingDetail() {
           </p>
         </div>
 
-        <Button onClick={moveBack} variation="text">
-          &larr; Back
-        </Button>
+        <div className="self-end md:self-auto">
+          <Button onClick={moveBack} variation="text">
+            &larr; Back
+          </Button>
+        </div>
       </div>
 
       <BookingDataBox booking={bookingData} />
@@ -54,14 +58,21 @@ function BookingDetail() {
             variation="primary"
           >
             <span className="flex items-center gap-1">
-              <LuMapPinCheck />
+              <FaDoorClosed />
               Check in
             </span>
           </Button>
         )}
         {bookingData.status === 'checked-in' && (
-          <Button variation="danger">
-            <span className="flex items-center gap-1">Check out</span>
+          <Button
+            disabled={isCheckingOut}
+            onClick={() => checkoutMutation()}
+            variation="primary"
+          >
+            <span className="flex items-center gap-1">
+              <FaDoorOpen />
+              Check out
+            </span>
           </Button>
         )}
         <Button onClick={moveBack} variation="secondary">

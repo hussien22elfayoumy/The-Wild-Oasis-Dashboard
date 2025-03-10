@@ -16,7 +16,6 @@ export default function CheckinBooking() {
   const { bookingData, isLoading } = useBooking();
   const { chekinMutaion, isCheckingIn } = useCheckin();
   const { settingsData } = useSettings();
-  console.log(bookingData);
 
   useEffect(() => {
     setConfirmPaid(bookingData?.isPaid!);
@@ -72,49 +71,50 @@ export default function CheckinBooking() {
 
       <BookingDataBox booking={bookingData} />
 
-      <div className="bg-my-grey-0 border-my-grey-100 rounded-md px-8 py-6">
-        <div className="flex gap-4">
-          <input
-            type="checkbox"
-            onChange={() => {
-              setHadBreakfast((confirm) => !confirm);
-              setConfirmPaid(false);
-            }}
-            checked={hadBreakfast}
-            id="hadBreakfast"
-            className="accent-my-brand-600 disabled:accent-my-brand-600 h-6 w-6 origin-[0] transform outline-offset-2"
-          />
-          <label
-            htmlFor="hadBreakfast"
-            className="flex flex-1 items-center gap-2"
-          >
-            Want to add Breakfast for {formatCurrency(optionalBreakfastPrice)}?
-          </label>
-        </div>
-      </div>
-
       {!bookingData.hasBreakfast && (
         <div className="bg-my-grey-0 border-my-grey-100 rounded-md px-8 py-6">
           <div className="flex gap-4">
             <input
               type="checkbox"
-              onChange={() => setConfirmPaid((confirm) => !confirm)}
-              checked={confirmPaid}
-              id="confirm"
+              onChange={() => {
+                setHadBreakfast((confirm) => !confirm);
+                setConfirmPaid(false);
+              }}
+              checked={hadBreakfast}
+              id="hadBreakfast"
               className="accent-my-brand-600 disabled:accent-my-brand-600 h-6 w-6 origin-[0] transform outline-offset-2"
-              disabled={confirmPaid}
             />
-            <label htmlFor="confirm" className="flex flex-1 items-center gap-2">
-              I confirm That
-              {bookingData.guests.fullName}
-              has paid the total amount of{' '}
-              {hadBreakfast
-                ? `${formatCurrency(totalAmount!)} (${formatCurrency(optionalBreakfastPrice)} + ${formatCurrency(bookingData.totalPrice!)})`
-                : formatCurrency(totalAmount!)}
+            <label
+              htmlFor="hadBreakfast"
+              className="flex flex-1 items-center gap-2"
+            >
+              Want to add Breakfast for {formatCurrency(optionalBreakfastPrice)}
+              ?
             </label>
           </div>
         </div>
       )}
+
+      <div className="bg-my-grey-0 border-my-grey-100 rounded-md px-8 py-6">
+        <div className="flex gap-4">
+          <input
+            type="checkbox"
+            onChange={() => setConfirmPaid((confirm) => !confirm)}
+            checked={confirmPaid}
+            id="confirm"
+            className="accent-my-brand-600 disabled:accent-my-brand-600 h-6 w-6 origin-[0] transform outline-offset-2"
+            disabled={confirmPaid}
+          />
+          <label htmlFor="confirm" className="flex flex-1 items-center gap-2">
+            I confirm That
+            {bookingData.guests.fullName}
+            has paid the total amount of{' '}
+            {hadBreakfast
+              ? `${formatCurrency(totalAmount!)} (${formatCurrency(optionalBreakfastPrice)} + ${formatCurrency(bookingData.totalPrice!)})`
+              : formatCurrency(totalAmount!)}
+          </label>
+        </div>
+      </div>
 
       <div className="flex justify-end gap-3">
         <Button

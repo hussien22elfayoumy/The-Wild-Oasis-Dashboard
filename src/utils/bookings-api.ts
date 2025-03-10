@@ -50,10 +50,7 @@ export async function getBooking(id: number) {
   return data as TBookingWithRelations;
 }
 
-export async function updateBooking(
-  id: number,
-  obj: { isPaid: boolean; status: string }
-) {
+export async function updateBooking(id: number, obj: {}) {
   const { data, error } = await supabase
     .from('bookings')
     .update(obj)
@@ -64,6 +61,17 @@ export async function updateBooking(
   if (error) {
     console.error(error);
     throw new Error('Booking could not be updated');
+  }
+  return data;
+}
+
+export async function deleteBooking(id: number) {
+  // REMEMBER RLS POLICIES
+  const { data, error } = await supabase.from('bookings').delete().eq('id', id);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be deleted');
   }
   return data;
 }
@@ -126,14 +134,5 @@ export async function getStaysTodayActivity() {
 
 
 
-export async function deleteBooking(id: string) {
-  // REMEMBER RLS POLICIES
-  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be deleted");
-  }
-  return data;
-}
  */

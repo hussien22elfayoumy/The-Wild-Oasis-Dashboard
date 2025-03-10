@@ -58,7 +58,7 @@ export default function BookingsRow({
             <HiEye />
             <span>Details</span>
           </Link>
-          {bookingDetails.status === 'unconfirmed' && (
+          {/* {bookingDetails.status === 'unconfirmed' && (
             <Link
               className="text-my-brand-600 flex items-center gap-1 underline-offset-2 hover:underline"
               to={`/checkin/${bookingDetails.id}`}
@@ -67,7 +67,7 @@ export default function BookingsRow({
 
               <span>Checkin</span>
             </Link>
-          )}
+          )} */}
         </td>
       </tr>
     </>
