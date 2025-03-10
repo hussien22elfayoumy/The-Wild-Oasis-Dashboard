@@ -51,6 +51,13 @@ export default function BookingsRow({
           {formatCurrency(bookingDetails.totalPrice!)}
         </td>
         <td className="flex flex-col gap-0.5 font-[Sono] text-base">
+          <Link
+            className="text-my-brand-600 flex items-center gap-1 underline-offset-2 hover:underline"
+            to={`/bookings/${bookingDetails.id}`}
+          >
+            <HiEye />
+            <span>Details</span>
+          </Link>
           {bookingDetails.status === 'unconfirmed' && (
             <Link
               className="text-my-brand-600 flex items-center gap-1 underline-offset-2 hover:underline"
@@ -61,13 +68,6 @@ export default function BookingsRow({
               <span>Checkin</span>
             </Link>
           )}
-          <Link
-            className="text-my-brand-600 flex items-center gap-1 underline-offset-2 hover:underline"
-            to={`/bookings/${bookingDetails.id}`}
-          >
-            <HiEye />
-            <span>Details</span>
-          </Link>
         </td>
       </tr>
     </>

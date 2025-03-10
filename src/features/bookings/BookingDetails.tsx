@@ -59,6 +59,11 @@ function BookingDetail() {
             </span>
           </Button>
         )}
+        {bookingData.status === 'checked-in' && (
+          <Button variation="danger">
+            <span className="flex items-center gap-1">Check out</span>
+          </Button>
+        )}
         <Button onClick={moveBack} variation="secondary">
           Back
         </Button>
