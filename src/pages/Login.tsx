@@ -5,9 +5,9 @@ function Login() {
   return (
     <main className="bg-my-grey-50 flex min-h-screen flex-col items-center justify-center gap-8">
       <Logo />
-      <h3 className="text-lg leading-relaxed font-semibold">
+      <h2 className="text-2xl leading-relaxed font-semibold">
         Login to your account
-      </h3>
+      </h2>
       <LoginForm />
     </main>
   );

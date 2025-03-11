@@ -1,20 +1,26 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import FormRow from '../../components/global/FormRow';
 import { useForm } from 'react-hook-form';
-import { loginFormSchema, TLoginForm } from '../../types/schema/login-scheme';
 import Button from '../../components/global/Button';
+import FormRow from '../../components/global/FormRow';
+import { loginFormSchema, TLoginForm } from '../../types/schema/login-scheme';
+import { useLogin } from './useLogin';
 
 export default function LoginForm() {
+  const { loginMutation, isLogining } = useLogin();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TLoginForm>({
     resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: 'test@gmail.com',
+      password: 'test123',
+    },
   });
 
   function onSubmit(values: TLoginForm) {
-    console.log(values);
+    loginMutation(values);
   }
 
   return (
@@ -26,6 +32,7 @@ export default function LoginForm() {
         <input
           type="email"
           id="email"
+          autoComplete="email"
           className="border-my-grey-200 bg-my-grey-0 h-11 rounded-md border p-2 shadow"
           {...register('email')}
         />
@@ -39,13 +46,16 @@ export default function LoginForm() {
         <input
           type="password"
           id="password"
+          autoComplete="current-password"
           className="border-my-grey-200 bg-my-grey-0 h-11 rounded-md border p-2 shadow"
           {...register('password')}
         />
       </FormRow>
 
       <div className="flex flex-col pt-4">
-        <Button variation="primary">Login</Button>
+        <Button disabled={isLogining} variation="primary">
+          {isLogining ? 'Logining...' : 'Log in'}
+        </Button>
       </div>
     </form>
   );
