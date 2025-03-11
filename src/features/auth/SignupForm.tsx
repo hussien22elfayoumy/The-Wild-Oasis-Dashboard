@@ -6,18 +6,24 @@ import {
   signupFormSchema,
   TSignupForm,
 } from '../../types/schema/signup-schema';
+import { useSignup } from './useSignup';
 
 export default function SignupForm() {
+  const { signupMutation, isPending } = useSignup();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TSignupForm>({
     resolver: zodResolver(signupFormSchema),
   });
 
   function onSubmit(values: TSignupForm) {
-    console.log(values);
+    signupMutation(values, {
+      onSuccess: () => reset(),
+    });
   }
 
   return (
@@ -77,10 +83,10 @@ export default function SignupForm() {
       </FormRow>
 
       <div className="flex flex-col gap-2 pt-4">
-        <Button disabled={false} variation="primary">
-          {false ? 'Creating user...' : 'Create user'}
+        <Button disabled={isPending} variation="primary">
+          {isPending ? 'Creating user...' : 'Create user'}
         </Button>
-        <Button variation="secondary" type="reset">
+        <Button disabled={isPending} variation="secondary" type="reset">
           Cancel
         </Button>
       </div>

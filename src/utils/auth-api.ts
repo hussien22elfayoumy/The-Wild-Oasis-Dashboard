@@ -1,5 +1,25 @@
 import { supabase } from '../db/supabase';
 import { TLoginForm } from '../types/schema/login-scheme';
+import { TSignupForm } from '../types/schema/signup-schema';
+
+export async function signUp(values: TSignupForm) {
+  const { data, error } = await supabase.auth.signUp({
+    email: values.email,
+    password: values.password,
+    options: {
+      data: {
+        fullName: values.fullName,
+        avatar: '',
+      },
+    },
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
 
 export async function login(values: TLoginForm) {
   const { data, error } = await supabase.auth.signInWithPassword(values);
