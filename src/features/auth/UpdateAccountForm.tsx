@@ -1,0 +1,77 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Button from '../../components/global/Button';
+import FormRow from '../../components/global/FormRow';
+import {
+  TUpdateAccountForm,
+  updateAccountFormSchema,
+} from '../../types/schema/signup-schema';
+import { useUser } from './useUser';
+
+export default function UpdateAccountForm() {
+  const { user } = useUser();
+  const [imageError, setImageError] = useState('');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TUpdateAccountForm>({
+    resolver: zodResolver(updateAccountFormSchema),
+    defaultValues: {
+      email: user?.email,
+      fullName: user?.user_metadata.fullName,
+      avatar: user?.user_metadata.avatar,
+    },
+  });
+
+  function onSubmit(values: TUpdateAccountForm) {
+    console.log(values);
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-my-grey-0 w-full max-w-xl space-y-3 rounded-lg p-10"
+    >
+      <FormRow error={errors.email?.message} labelName="Email" labelFor="email">
+        <input
+          type="email"
+          id="email"
+          autoComplete="email"
+          className="border-my-grey-200 bg-my-grey-0 h-11 rounded-md border p-2 shadow"
+          {...register('email')}
+        />
+      </FormRow>
+
+      <FormRow
+        error={errors.fullName?.message}
+        labelName="Full name"
+        labelFor="fullName"
+      >
+        <input
+          type="text"
+          id="fullName"
+          autoComplete="name"
+          className="border-my-grey-200 bg-my-grey-0 h-11 rounded-md border p-2 shadow"
+          {...register('fullName')}
+        />
+      </FormRow>
+
+      <FormRow labelName="Avatar" labelFor="avatar" error={imageError}>
+        <input
+          type="file"
+          id="avatar"
+          accept="image/*"
+          className="border-my-grey-200 bg-my-grey-0 file:text-my-brand-50 file:bg-my-brand-600 hover:file:bg-my-brand-700 rounded-md border shadow file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:px-4 file:py-2 file:font-medium"
+          {...register('avatar')}
+        />
+      </FormRow>
+
+      <div className="flex flex-col pt-4">
+        <Button variation="primary">Update account</Button>
+      </div>
+    </form>
+  );
+}

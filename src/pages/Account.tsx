@@ -1,3 +1,5 @@
+import UpdateAccountForm from '../features/auth/UpdateAccountForm';
+
 function Account() {
   return (
     <>
@@ -9,7 +11,7 @@ function Account() {
         <h3 className="text-2xl leading-relaxed font-medium">
           Update user data
         </h3>
-        <p>Update user data form</p>
+        <UpdateAccountForm />
       </div>
 
       <div className="flex flex-col gap-6">
