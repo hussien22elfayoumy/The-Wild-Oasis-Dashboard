@@ -35,12 +35,20 @@ export default function UpdateAccountForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="bg-my-grey-0 w-full max-w-xl space-y-3 rounded-lg p-10"
     >
+      <div className="border-my-brand-600 mx-auto size-20 overflow-hidden rounded-full border-2">
+        <img
+          src={user?.user_metadata?.avatar || 'default-user.jpg'}
+          className="w-full object-cover"
+          alt={`Avatar for the user`}
+        />
+      </div>
       <FormRow error={errors.email?.message} labelName="Email" labelFor="email">
         <input
+          disabled
           type="email"
           id="email"
           autoComplete="email"
-          className="border-my-grey-200 bg-my-grey-0 h-11 rounded-md border p-2 shadow"
+          className="border-my-grey-200 bg-my-grey-0 h-11 rounded-md border p-2 shadow disabled:cursor-not-allowed disabled:opacity-40"
           {...register('email')}
         />
       </FormRow>
