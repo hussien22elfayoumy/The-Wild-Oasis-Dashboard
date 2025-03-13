@@ -8,10 +8,12 @@ import {
   updateAccountFormSchema,
 } from '../../types/schema/signup-schema';
 import { useUser } from './useUser';
+import { useUpdateUser } from './useUpdateUser';
 
 export default function UpdateAccountForm() {
   const { user } = useUser();
   const [imageError, setImageError] = useState('');
+  const { updateUser } = useUpdateUser();
 
   const {
     register,
@@ -27,7 +29,7 @@ export default function UpdateAccountForm() {
   });
 
   function onSubmit(values: TUpdateAccountForm) {
-    console.log(values);
+    updateUser(values);
   }
 
   return (
@@ -38,7 +40,7 @@ export default function UpdateAccountForm() {
       <div className="border-my-brand-600 mx-auto size-20 overflow-hidden rounded-full border-2">
         <img
           src={user?.user_metadata?.avatar || 'default-user.jpg'}
-          className="w-full object-cover"
+          className="h-full w-full object-cover"
           alt={`Avatar for the user`}
         />
       </div>

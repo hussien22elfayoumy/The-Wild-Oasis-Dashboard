@@ -10,7 +10,7 @@ export default function Header() {
         <div className="border-my-brand-600 size-10 overflow-hidden rounded-full border-2">
           <img
             src={user?.user_metadata?.avatar || 'default-user.jpg'}
-            className="w-full object-cover"
+            className="h-full w-full object-cover"
             alt={`Avatar for the user`}
           />
         </div>
