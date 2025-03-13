@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../components/global/Button';
 import FormRow from '../../components/global/FormRow';
@@ -7,13 +6,12 @@ import {
   TUpdateAccountForm,
   updateAccountFormSchema,
 } from '../../types/schema/signup-schema';
-import { useUser } from './useUser';
 import { useUpdateUser } from './useUpdateUser';
+import { useUser } from './useUser';
 
 export default function UpdateAccountForm() {
   const { user } = useUser();
-  const [imageError, setImageError] = useState('');
-  const { updateUser } = useUpdateUser();
+  const { updateUser, isPending } = useUpdateUser();
 
   const {
     register,
@@ -69,7 +67,7 @@ export default function UpdateAccountForm() {
         />
       </FormRow>
 
-      <FormRow labelName="Avatar" labelFor="avatar" error={imageError}>
+      <FormRow labelName="Avatar" labelFor="avatar">
         <input
           type="file"
           id="avatar"
@@ -80,7 +78,9 @@ export default function UpdateAccountForm() {
       </FormRow>
 
       <div className="flex flex-col pt-4">
-        <Button variation="primary">Update account</Button>
+        <Button disabled={isPending} variation="primary">
+          Update account
+        </Button>
       </div>
     </form>
   );

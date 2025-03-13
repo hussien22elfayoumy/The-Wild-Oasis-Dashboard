@@ -74,7 +74,6 @@ export async function UpdateCurrentUser(values: TUpdateAccountForm) {
         '/',
         ''
       );
-    console.log(imageName);
 
     const { error: storageError } = await supabase.storage
       .from('avatars')
@@ -95,6 +94,5 @@ export async function UpdateCurrentUser(values: TUpdateAccountForm) {
     throw new Error('Faild to updata user data');
   }
 
-  console.log(data);
   return data;
 }
