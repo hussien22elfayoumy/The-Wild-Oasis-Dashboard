@@ -16,6 +16,7 @@ export default function UpdateAccountForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TUpdateAccountForm>({
     resolver: zodResolver(updateAccountFormSchema),
@@ -77,9 +78,17 @@ export default function UpdateAccountForm() {
         />
       </FormRow>
 
-      <div className="flex flex-col pt-4">
+      <div className="flex flex-col gap-2 pt-4">
         <Button disabled={isPending} variation="primary">
           Update account
+        </Button>
+        <Button
+          disabled={isPending}
+          type="button"
+          onClick={() => reset()}
+          variation="secondary"
+        >
+          Reset
         </Button>
       </div>
     </form>

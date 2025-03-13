@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import Logout from '../../features/auth/Logout';
 import { useUser } from '../../features/auth/useUser';
+import Button from './Button';
+import { useTheme } from '../../contexts/ThemeContext';
+import { HiMiniMoon, HiMiniSun } from 'react-icons/hi2';
 
 export default function Header() {
   const { user } = useUser();
+  const { toggleDarkMode, darkMode } = useTheme();
   return (
     <header className="bg-my-grey-0 border-my-grey-200 flex items-center justify-between border-b px-12 py-3">
       <div className="flex items-center gap-2">
@@ -18,7 +22,16 @@ export default function Header() {
           <Link to="/account">{user?.user_metadata?.fullName}</Link>
         </span>
       </div>
-      <Logout />
+      <div className="flex items-center gap-2">
+        <Button onClick={toggleDarkMode}>
+          {darkMode ? (
+            <HiMiniSun className="size-5" />
+          ) : (
+            <HiMiniMoon className="size-5" />
+          )}
+        </Button>
+        <Logout />
+      </div>
     </header>
   );
 }

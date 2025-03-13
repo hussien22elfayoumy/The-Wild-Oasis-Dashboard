@@ -11,10 +11,7 @@ export default function Logout() {
         onClick={() => logoutMutation()}
         variation="danger"
       >
-        <span className="flex items-center gap-2">
-          <HiMiniArrowLeftEndOnRectangle className="size-5" />
-          {isPending ? 'loading...' : 'Logout'}
-        </span>
+        <HiMiniArrowLeftEndOnRectangle className="size-5" />
       </Button>
     </div>
   );

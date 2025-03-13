@@ -1,8 +1,11 @@
+import { useTheme } from '../../contexts/ThemeContext';
+
 function Logo() {
+  const { darkMode } = useTheme();
   return (
     <div className="self-center">
       <img
-        src="/logo-light.png"
+        src={darkMode ? '/logo-dark.png' : '/logo-light.png'}
         alt="Logo"
         className="h-24 w-auto"
       />
