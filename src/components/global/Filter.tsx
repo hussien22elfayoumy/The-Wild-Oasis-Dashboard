@@ -13,12 +13,13 @@ export default function Filter({ options, filterField }: IFilterProps) {
 
   function handleClick(value: string) {
     searchParams.set(filterField, value);
-    searchParams.set('page', '1');
+
+    if (searchParams.get('page')) searchParams.set('page', '1');
     setSearhParams(searchParams);
   }
 
   return (
-    <div className="bg-my-grey-0 border-my-grey-100 flex gap-1 rounded-sm border p-1 shadow-sm">
+    <div className="bg-my-grey-0 border-my-grey-100 flex w-fit gap-1 rounded-sm border p-1 shadow-sm">
       {options.map((option) => (
         <Button
           key={option.value}
@@ -28,7 +29,7 @@ export default function Filter({ options, filterField }: IFilterProps) {
           active={currentFilter === option.value}
           disabled={currentFilter === option.value}
         >
-          {option.value}
+          {option.label}
         </Button>
       ))}
     </div>
