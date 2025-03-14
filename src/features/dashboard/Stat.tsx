@@ -12,7 +12,7 @@ export default function Stat({
   return (
     <div className="bg-my-grey-0 border-my-grey-200 flex items-center gap-2.5 rounded-md p-5">
       <div
-        className={`flex size-14 items-center justify-center rounded-full bg-my-${color}-100`}
+        className={`flex size-14 items-center justify-center rounded-full ${color}`}
       >
         {icon}
       </div>

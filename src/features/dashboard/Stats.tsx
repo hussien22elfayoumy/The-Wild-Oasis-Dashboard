@@ -13,11 +13,7 @@ export default function Stats({
   numDays,
   numCabins,
 }: {
-  bookings: {
-    createdAt: string;
-    totalPrice: number | null;
-    extrasPrice: number | null;
-  }[];
+  bookings: TRecentBookins[];
   confirmedStays: TRecentStyes[] | undefined;
   numDays: number;
   numCabins: number;
@@ -47,25 +43,25 @@ export default function Stats({
       <Stat
         icon={<HiOutlineBriefcase className="text-my-blue-700 size-7" />}
         title="Bookings"
-        color="blue"
+        color="bg-my-blue-100"
         value={numBookings}
       />
       <Stat
         icon={<HiOutlineBanknotes className="text-my-green-700 size-7" />}
         title="Sales"
-        color="green"
+        color="bg-my-green-100"
         value={formatCurrency(sales)}
       />
       <Stat
         icon={<HiOutlineCalendarDays className="text-my-indigo-700 size-7" />}
         title="Check Ins"
-        color="indigo"
+        color="bg-my-indigo-100"
         value={checkIns!}
       />
       <Stat
         icon={<HiOutlineChartBar className="text-my-yellow-700 size-7" />}
         title="Occupancy rate"
-        color="yellow"
+        color="bg-my-yellow-100"
         value={occupationRate! + '%'}
       />
     </>

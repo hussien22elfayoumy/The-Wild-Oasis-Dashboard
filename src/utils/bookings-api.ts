@@ -91,7 +91,7 @@ export async function getBookingsAfterDate(date: string | Date) {
     throw new Error('Bookings could not get loaded');
   }
 
-  return data;
+  return data as TRecentBookins[];
 }
 
 // Returns all STAYS that are were created after the given date

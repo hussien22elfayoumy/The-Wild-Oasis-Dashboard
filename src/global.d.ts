@@ -15,6 +15,12 @@ declare global {
   type TRecentStyes = TBookings & {
     guests: TGuests;
   };
+
+  type TRecentBookins = {
+    createdAt: string;
+    totalPrice: number | null;
+    extrasPrice: number | null;
+  };
 }
 
 export {};

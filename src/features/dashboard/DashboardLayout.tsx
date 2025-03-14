@@ -1,6 +1,7 @@
 import Empty from '../../components/global/Empty';
 import Spinner from '../../components/global/Spinner';
 import { useCabins } from '../cabins/useCabins';
+import SalesChart from './SalesChart';
 import Stats from './Stats';
 import useRecentBookings from './useRecentBookings';
 import useRecentStays from './useRecentStays';
@@ -36,7 +37,7 @@ export default function DashboardLayout() {
 
       <div>today activity</div>
       <div>Chart stay durations</div>
-      <div>Chart sales</div>
+      <SalesChart bookings={recentBookings} numDayes={numDays} />
     </div>
   );
 }

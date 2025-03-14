@@ -39,6 +39,11 @@
   --color-my-red-700: #b91c1c;
   --color-my-red-800: #991b1b;
 
+  --color-chart-strock-1: #4f46e5;
+  --color-chart-fill-1: #c7d2fe;
+  --color-chart-strock-2: #16a34a;
+  --color-chart-fill-2: #dcfce7;
+
   /* 
   --backdrop-color: rgba(255, 255, 255, 0.1);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -82,6 +87,11 @@
   --color-my-red-100: #fee2e2;
   --color-my-red-700: #b91c1c;
   --color-my-red-800: #991b1b;
+
+  --color-chart-strock-1: #4f46e5;
+  --color-chart-fill-1: #4f46e5;
+  --color-chart-strock-2: #16a34a;
+  --color-chart-fill-2: #16a34a;
 }
 
 @layer base {
@@ -120,5 +130,10 @@
     to {
       transform: rotate(1turn);
     }
+  }
+
+  .sales-chart .recharts-cartesian-grid-horizontal line,
+  .sales-chart .recharts-cartesian-grid-vertical line {
+    stroke: var(--color-my-grey-300);
   }
 }
