@@ -156,7 +156,7 @@ export default function DurationChart({
   const data = prepareData(startData, confirmedStays!);
 
   return (
-    <div className="sales-chart bg-my-grey-0 border-my-grey-200 col-span-2 col-start-3 flex flex-col gap-2.5 rounded-md p-6">
+    <div className="sales-chart bg-my-grey-0 border-my-grey-200 col-span-2 flex flex-col gap-2.5 rounded-md p-6 lg:col-start-3">
       <h2 className="text-xl font-semibold">Stay duration summary</h2>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>
@@ -164,8 +164,8 @@ export default function DurationChart({
             data={data}
             dataKey="value"
             nameKey="duration"
-            innerRadius={85}
-            outerRadius={110}
+            innerRadius={70}
+            outerRadius={90}
             cx="40%"
             cy="50%"
             paddingAngle={2}
@@ -189,7 +189,7 @@ export default function DurationChart({
           <Legend
             verticalAlign="middle"
             align="right"
-            width={200}
+            width={120}
             layout="vertical"
             iconSize={15}
           />

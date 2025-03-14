@@ -28,7 +28,7 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="grid grid-cols-4 grid-rows-[auto_24rem_auto] gap-6">
+    <div className="grid grid-cols-2 grid-rows-[auto_auto_22rem_22rem_auto] gap-6 lg:grid-cols-4 lg:grid-rows-[auto_24rem_auto]">
       <Stats
         bookings={recentBookings}
         confirmedStays={confirmedStays}

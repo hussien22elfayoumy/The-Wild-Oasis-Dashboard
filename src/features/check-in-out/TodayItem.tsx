@@ -9,9 +9,9 @@ export default function TodayItem({ activity }: { activity: TRecentStyes }) {
     'checked-out': 'text-my-silver-700 bg-my-silver-100',
   };
   return (
-    <li className="border-my-grey-200 grid grid-cols-[6.5rem_1.6rem_1fr_4.3rem_5.6rem] items-center gap-3 border-b py-2 text-sm first:border-t">
+    <li className="grid w-full grid-cols-[6.5rem_1.6rem_10rem_4.3rem_1fr] items-center gap-3 py-2 text-sm">
       <p
-        className={`text-${statusTypeColor[activity.status as 'unconfirmed' | 'checked-in' | 'checked-out']} w-fit rounded-full px-3 py-1 font-[Sono] text-sm font-medium uppercase`}
+        className={`${statusTypeColor[activity.status as 'unconfirmed' | 'checked-in' | 'checked-out']} w-fit rounded-full px-3 py-1 font-[Sono] text-sm font-medium uppercase`}
       >
         {activity.status === 'unconfirmed' && 'Arriving'}
         {activity.status === 'checked-in' && 'Departing'}

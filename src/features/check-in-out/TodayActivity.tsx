@@ -13,7 +13,7 @@ export default function TodayActivity() {
 
       {!isLoading ? (
         todayActivity?.length! > 0 ? (
-          <ul className="today-list overflow-auto overflow-x-hidden">
+          <ul className="today-list divide-my-grey-200 w-full divide-y-2 overflow-auto">
             {todayActivity?.map((activity) => (
               <TodayItem activity={activity} key={activity.id} />
             ))}
