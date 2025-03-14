@@ -1,6 +1,7 @@
 import Empty from '../../components/global/Empty';
 import Spinner from '../../components/global/Spinner';
 import { useCabins } from '../cabins/useCabins';
+import TodayActivity from '../check-in-out/TodayActivity';
 import DurationChart from './DurationChart';
 import SalesChart from './SalesChart';
 import Stats from './Stats';
@@ -11,7 +12,6 @@ export default function DashboardLayout() {
   const { cabinsData, isLoading: isLoadingCabins } = useCabins();
   const { recentBookings, isLoading: isLoadingBookings } = useRecentBookings();
   const {
-    recetnStays,
     isLoading: isLoadingStayes,
     confirmedStays,
     numDays,
@@ -36,7 +36,7 @@ export default function DashboardLayout() {
         numCabins={cabinsData?.length!}
       />
 
-      <div>today activity</div>
+      <TodayActivity />
       <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={recentBookings} numDayes={numDays} />
     </div>

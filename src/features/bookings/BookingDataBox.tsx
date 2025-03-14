@@ -6,6 +6,7 @@ import {
   HiOutlineHomeModern,
 } from 'react-icons/hi2';
 import { formatCurrency, formatDistanceFromNow } from '../../utils/helpers';
+import Flag from '../../components/global/Flag';
 
 function DataItem({
   icon,
@@ -24,16 +25,6 @@ function DataItem({
       </span>
       {children}
     </div>
-  );
-}
-
-function Flag({ src, alt }: { src: string; alt: string }) {
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className="border-my-grey-100 block max-w-8 rounded-sm border"
-    />
   );
 }
 
