@@ -35,7 +35,9 @@ export default function SalesChart({
 
   return (
     <div className="sales-chart bg-my-grey-00 border-my-grey-200 col-span-full flex flex-col gap-2.5 rounded-md p-5">
-      <h2 className="text-xl font-semibold">Sales</h2>
+      <h2 className="text-xl font-semibold">
+        {`Sales from ${format(allDates.at(0) as unknown as string, 'MMM dd yyy')} - ${format(allDates.at(-1) as unknown as string, 'MMM dd yyyy')}`}
+      </h2>
 
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>

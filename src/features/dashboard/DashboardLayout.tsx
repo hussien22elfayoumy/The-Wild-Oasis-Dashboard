@@ -1,6 +1,7 @@
 import Empty from '../../components/global/Empty';
 import Spinner from '../../components/global/Spinner';
 import { useCabins } from '../cabins/useCabins';
+import DurationChart from './DurationChart';
 import SalesChart from './SalesChart';
 import Stats from './Stats';
 import useRecentBookings from './useRecentBookings';
@@ -27,7 +28,7 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="grid grid-cols-4 grid-rows-[auto_34rem_auto] gap-6">
+    <div className="grid grid-cols-4 grid-rows-[auto_24rem_auto] gap-6">
       <Stats
         bookings={recentBookings}
         confirmedStays={confirmedStays}
@@ -36,7 +37,7 @@ export default function DashboardLayout() {
       />
 
       <div>today activity</div>
-      <div>Chart stay durations</div>
+      <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={recentBookings} numDayes={numDays} />
     </div>
   );

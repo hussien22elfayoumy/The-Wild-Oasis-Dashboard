@@ -18,8 +18,6 @@ export default function Stats({
   numDays: number;
   numCabins: number;
 }) {
-  console.log('booking', bookings);
-  console.log('stayes', confirmedStays);
   const numBookings = bookings.length;
   const sales = bookings.reduce((acc, booking) => booking.totalPrice! + acc, 0);
   const checkIns = confirmedStays?.length;
@@ -31,12 +29,10 @@ export default function Stats({
     (acc, stay) => acc + stay.numNights!,
     0
   );
-  console.log(numDays, numCabins);
 
   const avaliableNights = numDays * numCabins;
 
   const occupationRate = Math.round((checkInNights! / avaliableNights) * 100);
-  console.log(occupationRate);
 
   return (
     <>
