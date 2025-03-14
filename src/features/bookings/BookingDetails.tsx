@@ -9,6 +9,7 @@ import BookingDataBox from './BookingDataBox';
 import { useBooking } from './useBooking';
 import { HiTrash } from 'react-icons/hi2';
 import { useDeleteBooking } from '../check-in-out/useDeleteBooking';
+import { isToday } from 'date-fns';
 
 function BookingDetail() {
   const moveBack = useMoveBack();
@@ -66,18 +67,19 @@ function BookingDetail() {
             </span>
           </Button>
         )}
-        {bookingData.status === 'checked-in' && (
-          <Button
-            disabled={isCheckingOut}
-            onClick={() => checkoutMutation()}
-            variation="primary"
-          >
-            <span className="flex items-center gap-1">
-              <FaDoorOpen />
-              Check out
-            </span>
-          </Button>
-        )}
+        {bookingData.status === 'checked-in' &&
+          isToday(bookingData.endDate!) && (
+            <Button
+              disabled={isCheckingOut}
+              onClick={() => checkoutMutation()}
+              variation="primary"
+            >
+              <span className="flex items-center gap-1">
+                <FaDoorOpen />
+                Check out
+              </span>
+            </Button>
+          )}
 
         <Button
           disabled={isDeletingBooking}

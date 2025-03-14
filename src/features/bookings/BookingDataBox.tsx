@@ -52,7 +52,7 @@ function BookingDataBox({ booking }: { booking: TBookingWithRelations }) {
   } = booking;
 
   return (
-    <section className="border-my-grey-100 overflow-hidden rounded-md border bg-white">
+    <section className="border-my-grey-100 bg-my-grey-0 overflow-hidden rounded-md border">
       <header className="bg-my-brand-500 text-my-indigo-100 flex flex-col gap-3 p-8 text-lg font-medium md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-4 text-lg font-semibold">
           <HiOutlineHomeModern className="h-8 w-8" />
