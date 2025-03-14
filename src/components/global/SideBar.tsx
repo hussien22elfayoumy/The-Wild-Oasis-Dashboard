@@ -1,4 +1,3 @@
-// import Uploader from '../../data/Uploader';
 import { useSidebar } from '../../contexts/SidebarContext';
 import Logo from './Logo';
 import MainNav from './MainNav';
@@ -11,9 +10,6 @@ export default function Sidebar() {
     >
       <Logo />
       <MainNav />
-
-      {/*  TODO: Remove later */}
-      {/* <Uploader /> */}
     </aside>
   );
 }
