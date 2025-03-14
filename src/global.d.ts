@@ -11,6 +11,10 @@ declare global {
     cabins: TCabins;
     guests: TGuests;
   };
+
+  type TRecentStyes = TBookings & {
+    guests: TGuests;
+  };
 }
 
 export {};

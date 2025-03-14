@@ -108,7 +108,7 @@ export async function getStaysAfterDate(date: string | Date) {
     throw new Error('Bookings could not get loaded');
   }
 
-  return data;
+  return data as TRecentStyes[];
 }
 
 /*
